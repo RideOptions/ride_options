@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>225042821103-13uaj598i7pcofehedjf5h99dqnpun7i.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBDT3yxhZKhVYdvkCrzvOr-fQPrFtk7YiI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>225042821103</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.devaxis.rideoptions</string>
+	<key>PROJECT_ID</key>
+	<string>rideoptionspk-f26ee</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rideoptionspk-f26ee.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:225042821103:ios:28c3f7b3fdddd518ad901a</string>
+	<key>DATABASE_URL</key>
+	<string>https://rideoptionspk-f26ee-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

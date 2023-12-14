@@ -1,0 +1,228 @@
+{
+  "project_info": {
+    "project_number": "225042821103",
+    "firebase_url": "https://rideoptionspk-f26ee-default-rtdb.firebaseio.com",
+    "project_id": "rideoptionspk-f26ee",
+    "storage_bucket": "rideoptionspk-f26ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225042821103:android:cbc19c6418efe4e1ad901a",
+        "android_client_info": {
+          "package_name": "com.devaxis.ride_options"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8_HxcNJokUS_z1dBLraJM6awb23M2aGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225042821103:android:14ec86782ee071fbad901a",
+        "android_client_info": {
+          "package_name": "com.devaxis.rideoptions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225042821103-81ivele58g3cl5anuslpji5dp2ee4hhd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptions",
+            "certificate_hash": "56167c554f0aeb3bd75f3d60957260c139db7286"
+          }
+        },
+        {
+          "client_id": "225042821103-b5ugv3dgib8anpsuhs6s2ku3i8o7k6bo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptions",
+            "certificate_hash": "12ba1a77875e6370f3e586480413ef72e1bab537"
+          }
+        },
+        {
+          "client_id": "225042821103-i1bo4a5cug1pnbu06uq269b52doeiach.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptions",
+            "certificate_hash": "ecb18402f8d9298aec420f075987b75636d54b7b"
+          }
+        },
+        {
+          "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8_HxcNJokUS_z1dBLraJM6awb23M2aGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225042821103:android:94e4a6b5f9216151ad901a",
+        "android_client_info": {
+          "package_name": "com.devaxis.rideoptionscustomer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225042821103-5fp16vhbntn08aicih6roe1g6q4jsldc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptionscustomer",
+            "certificate_hash": "1abf0507f5cedc581fd45742e3b7be119a7948f5"
+          }
+        },
+        {
+          "client_id": "225042821103-a1bpbnat32f1at5nc0douel5eh91j7gf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptionscustomer",
+            "certificate_hash": "dd5de771628ccca707295e6bfb44970ebece6a94"
+          }
+        },
+        {
+          "client_id": "225042821103-nrd4qdkmrcm8meodp6puq3ddms8lkedm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptionscustomer",
+            "certificate_hash": "ecb18402f8d9298aec420f075987b75636d54b7b"
+          }
+        },
+        {
+          "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8_HxcNJokUS_z1dBLraJM6awb23M2aGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225042821103:android:40406520c90ac84dad901a",
+        "android_client_info": {
+          "package_name": "com.devaxis.rideoptionsdriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225042821103-13uaj598i7pcofehedjf5h99dqnpun7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptionsdriver",
+            "certificate_hash": "ecb18402f8d9298aec420f075987b75636d54b7b"
+          }
+        },
+        {
+          "client_id": "225042821103-aen4fv01gg1h339nks7oetmtt1umu1pa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptionsdriver",
+            "certificate_hash": "6dcf36514010548926075813e4107c0b2fa77ad2"
+          }
+        },
+        {
+          "client_id": "225042821103-bvjpcefe3pctfdc2ae8he6jff162202k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devaxis.rideoptionsdriver",
+            "certificate_hash": "acfb676d278ad14fbde3803a53b65a1c5c33fc7d"
+          }
+        },
+        {
+          "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8_HxcNJokUS_z1dBLraJM6awb23M2aGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225042821103:android:66930b22036ad765ad901a",
+        "android_client_info": {
+          "package_name": "com.itz.ride_options_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8_HxcNJokUS_z1dBLraJM6awb23M2aGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225042821103-p269ebhr1tn2lekauubndlpqlb13ua4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
