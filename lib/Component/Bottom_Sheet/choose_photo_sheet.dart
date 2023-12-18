@@ -1,12 +1,11 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+
 import '../common_function.dart';
 import '../theme/text_style_theme.dart';
 
-
 class ChoosePhotoSheet extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,10 +24,8 @@ class ChoosePhotoSheet extends StatelessWidget {
                   child: Image.asset(
                     "assets/images/close.png",
                     width: 25,
-
                   ),
-                )
-            )),
+                ))),
         Container(
           height: 200,
           child: Center(
@@ -38,10 +35,10 @@ class ChoosePhotoSheet extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () async {
-                    File? file= await CommonFunctions().getFromCamera();
+                    File? file = await CommonFunctions().getFromCamera();
                     // authenticateProvider?.notifyListeners();
                     print("camera: ${file?.path}");
-                    Navigator.pop(context,file);
+                    Navigator.pop(context, file);
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
@@ -89,11 +86,10 @@ class ChoosePhotoSheet extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    File? file= await CommonFunctions().getFromGallery();
+                    File? file = await CommonFunctions().getFromGallery();
                     // authenticateProvider?.notifyListeners();
                     print("gallery: ${file?.path}");
-                    Navigator.pop(context,file);
-
+                    Navigator.pop(context, file);
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
@@ -143,6 +139,4 @@ class ChoosePhotoSheet extends StatelessWidget {
       ],
     );
   }
-
-
 }

@@ -1,10 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+
 import '../../Screens/HomePage/NavBarPages/Ride/driver_live_tracking_page.dart';
 import '../Dialogue/app_dialogue.dart';
-import '../Function/send_notification.dart';
 import '../Model/Authentication/driver_user_model.dart';
 import '../Model/Authentication/location.dart';
 import '../Model/Authentication/user_model.dart';
@@ -66,6 +65,8 @@ class RideProvider with ChangeNotifier {
     }
   }
 
+  // this function for creating ride request
+
   createRideRequest(
       {required LocationModel sourceLocation,
       required LocationModel destinationModel,
@@ -77,6 +78,7 @@ class RideProvider with ChangeNotifier {
         MyResponse(success: false, message: "no data", data: null);
     // showSnackBar(context,
     //     "vehicleType "+vehicleType);
+
     if (vehicleType == Constant.bikeVehicleType ||
         vehicleType == Constant.RickshawVehicleType ||
         vehicleType == Constant.miniVehicleType ||
@@ -113,7 +115,6 @@ class RideProvider with ChangeNotifier {
               price: price,
               timeStamp: currentTimeStamp);
           await ref.child(nodeKey!).set(requestModel.toMap());
-
         }
 
         RideModel rideModel = RideModel(
@@ -134,12 +135,13 @@ class RideProvider with ChangeNotifier {
     }
   }
 
+// this fuction for cancel Ride Request
   cancelRideRequest() async {
     if (rideId != null) {
       DatabaseReference ref =
-      FirebaseDatabase.instance.ref("SaTtAaYz").child('rideRequest');
+          FirebaseDatabase.instance.ref("SaTtAaYz").child('rideRequest');
       DatabaseReference ref2 =
-      FirebaseDatabase.instance.ref("SaTtAaYz").child('ride');
+          FirebaseDatabase.instance.ref("SaTtAaYz").child('ride');
 
       await ref2.child(rideId!).remove();
 
@@ -159,6 +161,7 @@ class RideProvider with ChangeNotifier {
     }
   }
 
+// this fuction for get Ride Request
   getRideRequestMethod({required String uid}) async {
     MyResponse response = await RideService().getRideRequestAsync(uid);
     if (response.success) {

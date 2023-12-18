@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Common_widget/button_widget.dart';
 import '../theme/app_theme.dart';
 
+// ignore: must_be_immutable
 class ApplicationAlertDialogue extends StatelessWidget {
   String? imagePath;
   double? imageWidth;
@@ -24,12 +24,25 @@ class ApplicationAlertDialogue extends StatelessWidget {
   bool? crossBtnVisible;
   bool? pngPath;
 
-
-
-  ApplicationAlertDialogue({this.imagePath, this.title, this.description,
-      this.titleStyle, this.descriptionStyle,this.descriptionHighlightStyle,this.dialogueHeight,required this.onTap,this.imageHeight=230,this.imageWidth=280,
-    required this.richTextFlag,this.txt1,this.txt2,this.txt3,this.cancelBtnVisible=false,this.buttonText="Continue",this.crossBtnVisible=true,this.pngPath=false
-  });
+  ApplicationAlertDialogue(
+      {this.imagePath,
+      this.title,
+      this.description,
+      this.titleStyle,
+      this.descriptionStyle,
+      this.descriptionHighlightStyle,
+      this.dialogueHeight,
+      required this.onTap,
+      this.imageHeight = 230,
+      this.imageWidth = 280,
+      required this.richTextFlag,
+      this.txt1,
+      this.txt2,
+      this.txt3,
+      this.cancelBtnVisible = false,
+      this.buttonText = "Continue",
+      this.crossBtnVisible = true,
+      this.pngPath = false});
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +54,8 @@ class ApplicationAlertDialogue extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         content: Container(
-          height: dialogueHeight??450,
-          width: MediaQuery
-              .of(context)
-              .size
-              .width * 0.85,
+          height: dialogueHeight ?? 450,
+          width: MediaQuery.of(context).size.width * 0.85,
           child: Stack(
             children: [
               Positioned(
@@ -59,8 +69,9 @@ class ApplicationAlertDialogue extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         child: Image.asset(
-                          "assets/images/close.png", width: 15,)
-                    ),
+                          "assets/images/close.png",
+                          width: 15,
+                        )),
                   )),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,8 +79,12 @@ class ApplicationAlertDialogue extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  Center(child:Image.asset(imagePath!,width: imageWidth,height: imageHeight,)
-                  ),
+                  Center(
+                      child: Image.asset(
+                    imagePath!,
+                    width: imageWidth,
+                    height: imageHeight,
+                  )),
                   SizedBox(
                     height: 15,
                   ),
@@ -80,16 +95,17 @@ class ApplicationAlertDialogue extends StatelessWidget {
                       style: titleStyle,
                     ),
                   ),
-                  (richTextFlag==false)? Center(
-                    child: Text(
-                      description!,
-                      textAlign: TextAlign.center,
-                      style: descriptionStyle,
-                    ),
-                  ): Center(
-                    child: Text.rich(
-                        TextSpan(
-                            children: <InlineSpan>[
+                  (richTextFlag == false)
+                      ? Center(
+                          child: Text(
+                            description!,
+                            textAlign: TextAlign.center,
+                            style: descriptionStyle,
+                          ),
+                        )
+                      : Center(
+                          child: Text.rich(
+                            TextSpan(children: <InlineSpan>[
                               TextSpan(
                                 text: txt1,
                                 style: descriptionStyle,
@@ -102,11 +118,10 @@ class ApplicationAlertDialogue extends StatelessWidget {
                                 text: txt3,
                                 style: descriptionStyle,
                               ),
-                            ]
+                            ]),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
                   // Expanded(
                   //   child: Row(
                   //     mainAxisAlignment: MainAxisAlignment.center,
@@ -119,13 +134,26 @@ class ApplicationAlertDialogue extends StatelessWidget {
                   //   ),
                   // ),
                   Spacer(),
-               buttonWidget(context: context, text: buttonText!, color: primaryColor, onPress: onTap),
-                  if (cancelBtnVisible==true) Column(
-                    children: [
-                      SizedBox(height: 10,),
-                      buttonWidget(context: context, text: buttonText!,onPress: (){},color:Colors.white),
-                    ],
-                  ) else Container(),
+                  buttonWidget(
+                      context: context,
+                      text: buttonText!,
+                      color: primaryColor,
+                      onPress: onTap),
+                  if (cancelBtnVisible == true)
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        buttonWidget(
+                            context: context,
+                            text: buttonText!,
+                            onPress: () {},
+                            color: Colors.white),
+                      ],
+                    )
+                  else
+                    Container(),
                 ],
               ),
             ],

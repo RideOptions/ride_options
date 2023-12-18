@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:rideoptions/Component/theme/app_theme.dart';
 import 'package:rideoptions/Component/theme/text_style_theme.dart';
 import 'package:rideoptions/Options/Buses/buses_list.dart';
@@ -194,7 +193,9 @@ class _searchBusesScreenState extends State<searchBusesScreen> {
               text: 'Search',
               color: lightGreyColor,
               onPress: () async {
-                Get.to(BusesList());
+                // Get.to(BusesList());
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BusesList()));
               },
             ),
             Padding(

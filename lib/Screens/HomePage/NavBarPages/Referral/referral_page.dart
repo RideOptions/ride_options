@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rideoptions/Component/Model/withdarw_model.dart';
 import '../../../../Component/Model/Authentication/user_model.dart';
@@ -331,7 +330,7 @@ class _ReferralPageState extends State<ReferralPage> {
                   child: Text('Done'),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Get.back();
+                      Navigator.pop(context);
                       if (_option == WithdrawOption.withdraw) {
                         DatabaseReference dbRef = FirebaseDatabase.instance
                             .ref()
@@ -449,7 +448,7 @@ class _ReferralPageState extends State<ReferralPage> {
                   width: 250,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
                         primary: primaryColor,

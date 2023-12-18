@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rideoptions/helper/colors.dart';
 
 import '../../../../Component/Common_Widget/button_widget.dart';
 import '../../../../Component/Dialogue/acitivity_indicator_dialogue.dart';
@@ -20,6 +22,7 @@ import '../../../../Component/theme/app_theme.dart';
 import '../../../../Component/theme/text_style_theme.dart';
 import '../../BottomNavBar/customer_nav_bar_page.dart';
 
+// ignore: must_be_immutable
 class RideCategoryPage extends StatefulWidget {
   LocationModel pickupLocation;
   LocationModel destinationLocation;
@@ -67,6 +70,34 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    // this function for rideRequest Terminator
+    (!findDriver)
+        ? null
+        : Future.delayed(Duration(seconds: 90)).then((value) {
+            cancelButtonClicked();
+          });
+
+    AppLifecycleListener(
+      onResume: () {
+        cancelButtonClicked();
+      },
+      onHide: () {
+        cancelButtonClicked();
+      },
+      onInactive: () {
+        cancelButtonClicked();
+      },
+      onPause: () {
+        cancelButtonClicked();
+      },
+      onDetach: () {
+        cancelButtonClicked();
+      },
+      onRestart: () {
+        cancelButtonClicked();
+      },
+    );
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -152,6 +183,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                           crossAxisSpacing: 0.0,
                           mainAxisSpacing: 0.0,
                           children: [
+                            // this portion for motor bike
                             GestureDetector(
                               onTap: () {
                                 if (bikePrice == 0) {
@@ -250,6 +282,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                 ),
                               ),
                             ),
+                            // this portion for rickshaw
                             GestureDetector(
                               onTap: () {
                                 if (RickshawPrice == 0) {
@@ -345,6 +378,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                 ),
                               ),
                             ),
+                            // this portion for mini car
                             GestureDetector(
                               onTap: () {
                                 if (miniPrice == 0) {
@@ -440,6 +474,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                 ),
                               ),
                             ),
+                            // this portion for ride go
                             GestureDetector(
                               onTap: () {
                                 if (goPrice == 0) {
@@ -535,6 +570,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                 ),
                               ),
                             ),
+                            // this portion for Ride X
                             GestureDetector(
                               onTap: () {
                                 if (rideXPrice == 0) {
@@ -632,6 +668,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                             ),
                           ]),
                     ),
+                    // this is if findDriver is true then show Finding Driver otherwise show SizedBox
                     (findDriver)
                         ? Align(
                             alignment: Alignment.center,
@@ -643,13 +680,14 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                     child: Text("Finding Driver....",
                                         style: blackTextRegularIn30px()))),
                           )
-                        : Container(),
+                        : SizedBox.shrink(),
                   ],
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Visibility(
@@ -660,6 +698,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                   ),
                 ),
               ),
+              // this portion for if findDriver is not false then show confirm button otherwise show cancel
               (!findDriver)
                   ? Padding(
                       padding: const EdgeInsets.symmetric(
@@ -788,8 +827,9 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
   //
   //   setState(() {});
   // }
-
+//  this fuction for calculate distance and finde drivers, also calculate price and show on screen
   initializeComponent() async {
+    log("initialize function call when ride request generated");
     rideProvider = Provider.of<RideProvider>(context, listen: false);
     userDetail = await LocalStorageService.getSignUpModel();
     sourceLocation =
@@ -816,6 +856,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
     setState(() {});
   }
 
+// this fuction for calculate fare
   _loadVehicleRates() async {
     if (rideProvider!.getVehicleRateList.isEmpty) {
       await rideProvider!.getVehicleRateListMethod();
@@ -828,13 +869,13 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
         ratePerMint: 50,
       ),
       "Rickshaw":
-      VehicleRate(baseRate: 100, ratePerKilometer: 35, ratePerMint: 80),
+          VehicleRate(baseRate: 100, ratePerKilometer: 35, ratePerMint: 80),
       "Mini":
-      VehicleRate(baseRate: 170, ratePerKilometer: 43, ratePerMint: 120),
+          VehicleRate(baseRate: 170, ratePerKilometer: 43, ratePerMint: 120),
       "RideGo":
-      VehicleRate(baseRate: 235, ratePerKilometer: 51, ratePerMint: 180),
+          VehicleRate(baseRate: 235, ratePerKilometer: 51, ratePerMint: 180),
       "RideX":
-      VehicleRate(baseRate: 270, ratePerKilometer: 63, ratePerMint: 280),
+          VehicleRate(baseRate: 270, ratePerKilometer: 63, ratePerMint: 280),
 
       // ... add other vehicles here
     });
@@ -848,6 +889,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
     // ... do the same for other vehicles
   }
 
+// this fuction getting polyLinePoints
   getPolyLinePoints() async {
     PolylinePoints polyLinePoints = PolylinePoints();
     PolylineResult result = await polyLinePoints.getRouteBetweenCoordinates(
@@ -863,6 +905,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
     }
   }
 
+  // this function for creating ride request
   confirmButtonClicked() async {
     if (selectedVehicle != null && distance != null && selectedPrice != null) {
       setState(() {
@@ -884,6 +927,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
     }
   }
 
+// this fucntion for ride request cancel or removel
   cancelButtonClicked() async {
     loadingAlertDialog(context: context);
     if (rideProvider?.rideId == null) {
@@ -895,6 +939,8 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
       findDriver = false;
     });
   }
+
+  // this fuction for Onwillpop
 
   Future<bool> onWillPop() async {
     if (findDriver) {
@@ -931,6 +977,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
     }
   }
 }
+// this fuction for fare calculator class
 
 class FareCalculator {
   final Map<String, VehicleRate> vehicleRates;

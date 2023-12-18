@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import '../../Component/theme/text_style_theme.dart';
 import 'controller/getxController.dart';
 
@@ -11,7 +11,7 @@ class BusDetails extends StatefulWidget {
 }
 
 class _BusDetailsState extends State<BusDetails> {
-  var controller = Get.put(ctrl());
+  // var controller = Get.put(ctrl());
 
   @override
   Widget build(BuildContext context) {

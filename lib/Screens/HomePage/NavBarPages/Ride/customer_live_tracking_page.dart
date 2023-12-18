@@ -1,22 +1,19 @@
 import 'dart:async';
-import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
-import 'dart:ui' as ui;
+
 import '../../../../Component/Common_Widget/button_widget.dart';
 import '../../../../Component/Common_Widget/circular_network_Image.dart';
-import '../../../../Component/Common_Widget/show_snack_bar.dart';
 import '../../../../Component/Dialogue/acitivity_indicator_dialogue.dart';
 import '../../../../Component/Dialogue/app_dialogue.dart';
 import '../../../../Component/Dialogue/driver_review_dialogue.dart';
-import '../../../../Component/Model/Authentication/driver_user_model.dart';
 import '../../../../Component/Model/Authentication/user_model.dart';
 import '../../../../Component/Model/Review/review_model.dart';
 import '../../../../Component/Model/Ride/ride_model.dart';
@@ -30,9 +27,9 @@ import '../../../../Component/constant.dart';
 import '../../../../Component/theme/app_theme.dart';
 import '../../../../Component/theme/text_style_theme.dart';
 import '../../BottomNavBar/customer_nav_bar_page.dart';
-import '../../BottomNavBar/driver_nav_bar_page.dart';
 import '../Chat/chat_page.dart';
 
+// ignore: must_be_immutable
 class CustomerLiveTrackingPage extends StatefulWidget {
   RideModel rideModel;
   CustomerLiveTrackingPage({required this.rideModel});
@@ -405,7 +402,7 @@ class _CustomerLiveTrackingPageState extends State<CustomerLiveTrackingPage> {
 
   listenRideNode1(String rideId) {
     DatabaseReference ref =
-    FirebaseDatabase.instance.ref("SaTtAaYz").child('ride');
+        FirebaseDatabase.instance.ref("SaTtAaYz").child('ride');
     rideSteam = ref.child(rideId).child("status").onValue.listen((event) async {
       print("onValue listen call");
       if (event.snapshot.exists) {
@@ -418,15 +415,15 @@ class _CustomerLiveTrackingPageState extends State<CustomerLiveTrackingPage> {
             context: context,
             builder: (ctx) => AppDialogue(
               title: "Alert",
-              description: "Ride has been cancelled.\n سواری منسوخ کر دی گئی ہے۔",
+              description:
+                  "Ride has been cancelled.\n سواری منسوخ کر دی گئی ہے۔",
               cancelBtnVisible: false,
               confirmBthText: "ok",
             ),
           );
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => CustomerNavBarPage()),
-                  (Route<dynamic> route) => false);
+              MaterialPageRoute(builder: (context) => CustomerNavBarPage()),
+              (Route<dynamic> route) => false);
         }
       }
     });
@@ -533,9 +530,7 @@ class _CustomerLiveTrackingPageState extends State<CustomerLiveTrackingPage> {
       return;
     }
     await getPolyLinePoints();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   Future<bool> onWillPop() async {

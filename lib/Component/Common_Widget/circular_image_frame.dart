@@ -1,16 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'circular_network_Image.dart';
 
-
+// ignore: must_be_immutable
 class CircularImageFrame extends StatelessWidget {
   String imageUrl;
   double outerCircleRadius;
   double circleRadius;
 
-
-  CircularImageFrame({required this.imageUrl,required this.outerCircleRadius,required this.circleRadius});
+  CircularImageFrame(
+      {required this.imageUrl,
+      required this.outerCircleRadius,
+      required this.circleRadius});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class CircularImageFrame extends StatelessWidget {
         child: CircleAvatar(
           radius: circleRadius,
           backgroundColor: Colors.white,
-          child: CircleNetworkImageFrame(imageUrl,circleRadius*2,circleRadius*2,null),
+          child: CircleNetworkImageFrame(
+              imageUrl, circleRadius * 2, circleRadius * 2, null),
         ),
       ),
     );

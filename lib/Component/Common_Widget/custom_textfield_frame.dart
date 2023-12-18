@@ -1,33 +1,42 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rideoptions/Component/theme/app_theme.dart';
 
 import '../theme/text_style_theme.dart';
 
+// ignore: must_be_immutable
 class CustomTextFieldFrame extends StatelessWidget {
-String text;
-String hintText;
-String iconUrl;
-TextInputType? keyboardType;
-bool? isPassword;
-bool iconVisible;
-Function()? onTap;
-double? cornerRadius;
-TextEditingController? textController;
-TextCapitalization? textCapitalization;
-bool? isReadOnly;
-FocusNode? focusNode;
-CustomTextFieldFrame({required this.text,this.keyboardType,this.isPassword ,required this.hintText, required this.iconUrl, required this.iconVisible,
-  this.onTap, this.textController,this.cornerRadius=5.0,this.focusNode,this.textCapitalization,
-  this.isReadOnly=false,
-});
-
+  String text;
+  String hintText;
+  String iconUrl;
+  TextInputType? keyboardType;
+  bool? isPassword;
+  bool iconVisible;
+  Function()? onTap;
+  double? cornerRadius;
+  TextEditingController? textController;
+  TextCapitalization? textCapitalization;
+  bool? isReadOnly;
+  FocusNode? focusNode;
+  CustomTextFieldFrame({
+    required this.text,
+    this.keyboardType,
+    this.isPassword,
+    required this.hintText,
+    required this.iconUrl,
+    required this.iconVisible,
+    this.onTap,
+    this.textController,
+    this.cornerRadius = 5.0,
+    this.focusNode,
+    this.textCapitalization,
+    this.isReadOnly = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width ,
-      padding: EdgeInsets.symmetric(vertical: 0,horizontal: 15),
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -57,37 +66,38 @@ CustomTextFieldFrame({required this.text,this.keyboardType,this.isPassword ,requ
               controller: textController,
               keyboardType: keyboardType,
               focusNode: focusNode,
-              obscureText: isPassword??false,
+              obscureText: isPassword ?? false,
               textInputAction: TextInputAction.next,
-              textCapitalization: textCapitalization??TextCapitalization.none,
+              textCapitalization: textCapitalization ?? TextCapitalization.none,
               readOnly: isReadOnly!,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle:  TextStyle(
+                hintStyle: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w100,
                   fontSize: 14.0,
                 ),
-                border: InputBorder.none,),
+                border: InputBorder.none,
+              ),
               style: blackTextRegularIn14px(),
             ),
           ),
-          (iconVisible)?Image.asset(
-            iconUrl,
-            width:20,
-            height: 20,
-            color: primaryColor,
-
-          ): GestureDetector(
-            onTap: onTap,
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-          ),
+          (iconVisible)
+              ? Image.asset(
+                  iconUrl,
+                  width: 20,
+                  height: 20,
+                  color: primaryColor,
+                )
+              : GestureDetector(
+                  onTap: onTap,
+                  child: Text(
+                    text,
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ),
         ],
       ),
-
     );
   }
 }

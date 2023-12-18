@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:rideoptions/Options/Buses/bus_details.dart';
 
 import '../../Component/theme/app_theme.dart';
@@ -15,7 +15,7 @@ class BusBooking extends StatefulWidget {
 }
 
 class _BusBookingState extends State<BusBooking> {
-  var controller = Get.put(ctrl());
+  // var controller = Get.put(ctrl());
   var backed = false;
 
   @override
@@ -28,7 +28,7 @@ class _BusBookingState extends State<BusBooking> {
           currentIndex == 1 ? backed = true : backed = false;
           currentIndex > 0
               ? currentIndex = (currentIndex - 1) % screens.length
-              : Get.back();
+              : Navigator.pop(context);
         });
         return false;
       },
@@ -38,26 +38,24 @@ class _BusBookingState extends State<BusBooking> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              setState(() {
-                currentIndex != 0
-                    ? currentIndex = (currentIndex - 1) % screens.length
-                    : Get.back();
-                currentIndex == 0
-                    ? controller.text.value = 'Bus Details'
-                    : controller.text.value = 'Seat Selection';
-              });
+              // setState(() {
+              //   currentIndex != 0
+              //       ? currentIndex = (currentIndex - 1) % screens.length
+              //       : Navigator.pop(context);
+              //   currentIndex == 0
+              //       ? controller.text.value = 'Bus Details'
+              //       : controller.text.value = 'Seat Selection';
+              // });
             },
             icon: Icon(
               Icons.arrow_back_outlined,
             ),
           ),
           elevation: 0,
-          title: Obx(() {
-            return TextFormField(
-              controller: TextEditingController(text: controller.text.value),
-              style: whiteAppBarTextStyle22px(),
-            );
-          }),
+          title: TextFormField(
+            controller: TextEditingController(),
+            style: whiteAppBarTextStyle22px(),
+          ),
         ),
         body: Column(
           children: [
@@ -122,15 +120,15 @@ class _BusBookingState extends State<BusBooking> {
         ),
         bottomNavigationBar: GestureDetector(
           onTap: () {
-            setState(() {
-              currentIndex = (currentIndex + 1) % screens.length;
-              print(currentIndex);
-              print(controller.text.value);
-              Get.put(ctrl());
-              currentIndex == 0
-                  ? controller.text.value = 'Bus Details'
-                  : controller.text.value = 'Seat Selection';
-            });
+            // setState(() {
+            //   currentIndex = (currentIndex + 1) % screens.length;
+            //   print(currentIndex);
+            //   print(controller.text.value);
+            //   Get.put(ctrl());
+            //   currentIndex == 0
+            //       ? controller.text.value = 'Bus Details'
+            //       : controller.text.value = 'Seat Selection';
+            // });
             if (currentIndex == 2) {
               showModalBottomSheet(
                 isDismissible: false,
@@ -153,10 +151,7 @@ class _BusBookingState extends State<BusBooking> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             GestureDetector(
-                              onTap: ()
-                              {
-
-                              },
+                              onTap: () {},
                               child: Container(
                                 height: 60,
                                 width: 120,
@@ -222,7 +217,7 @@ class _BusBookingState extends State<BusBooking> {
                 setState(() {
                   backed != true
                       ? currentIndex = (currentIndex - 1) % screens.length
-                      : Get.back();
+                      : Navigator.pop(context);
                 });
               });
             }

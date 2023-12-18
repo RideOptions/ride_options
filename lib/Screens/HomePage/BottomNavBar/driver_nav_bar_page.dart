@@ -36,7 +36,7 @@ class _DriverNavBarPageState extends State<DriverNavBarPage> {
   @override
   void initState() {
     super.initState();
-    KeepScreenOn.turnOn();
+    // KeepScreenOn.turnOn();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       initializeComponent();
       getUID();

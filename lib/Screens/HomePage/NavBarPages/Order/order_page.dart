@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +77,7 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    log("driver request screen");
     return UpgradeAlert(
       child: Scaffold(
         body: SafeArea(
@@ -96,6 +98,7 @@ class _OrderPageState extends State<OrderPage> {
                           "Ride Requests",
                           style: blackTextBoldIn35px(),
                         ),
+                        // this is switch button
                         FlutterSwitch(
                           showOnOff: false,
                           activeColor: purpleColor,
@@ -419,10 +422,8 @@ class _OrderPageState extends State<OrderPage> {
         context,
         MaterialPageRoute(
           builder: (context) => CommissionPage(
-              UModel:
-              _user?.amount?.isNotEmpty ?? false
-                  ? _user!.amount!
-                  : '0', throughOrderPage: false),
+              UModel: _user?.amount?.isNotEmpty ?? false ? _user!.amount! : '0',
+              throughOrderPage: false),
         ),
       );
 

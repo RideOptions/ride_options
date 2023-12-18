@@ -5,11 +5,13 @@ import 'package:firebase_database/firebase_database.dart';
 class GlobalService {
   Future<int> getCurrentTime() async {
     int timeStamp = 0;
+    // store current time on firebase
     await FirebaseDatabase.instance
         .ref()
         .child('SaTtAaYz')
         .child("currentTime")
         .set({"timeStamp": ServerValue.timestamp});
+    // now we get this time
     var event = await FirebaseDatabase.instance
         .ref()
         .child('SaTtAaYz')

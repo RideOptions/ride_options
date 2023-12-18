@@ -1,17 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AppFrameTemplate extends StatelessWidget {
   double? cornerRadius;
   Widget customWidget;
 
-  AppFrameTemplate({this.cornerRadius=5.0, required this.customWidget});
+  AppFrameTemplate({this.cornerRadius = 5.0, required this.customWidget});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width ,
-      padding: EdgeInsets.symmetric(vertical: 0,horizontal: 15),
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -34,7 +34,6 @@ class AppFrameTemplate extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(cornerRadius!)),
       ),
       child: customWidget,
-
     );
   }
 }

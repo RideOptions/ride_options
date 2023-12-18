@@ -20,8 +20,6 @@ import '../../../../Component/theme/text_style_theme.dart';
 import '../../BottomNavBar/driver_nav_bar_page.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class CommissionPage extends StatefulWidget {
   static const platform = const MethodChannel('com.flutter.khurramdev');
 
@@ -597,7 +595,6 @@ class _CommissionPageState extends State<CommissionPage> {
                 } else {
                   // Handle the continue action here
                   print("On Tapped");
-                  initiateTransaction();
                 }
               },
               child: Text(
@@ -612,32 +609,4 @@ class _CommissionPageState extends State<CommissionPage> {
       },
     );
   }
-
-  Future<void> initiateTransaction() async {
-    var requestBody = {
-      "orderId": "${DateTime.now().millisecondsSinceEpoch}",
-      "storeId": "25056",
-      "transactionAmount": "1.0",
-      "transactionType": "MA",
-      "mobileAccountNo": "03376980901",
-      "emailAddress": "asadbalqani@gmail.com"
-    };
-
-    var jsonBody = json.encode(requestBody);
-    var response = await http.post(
-      Uri.parse('https://easypaystg.easypaisa.com.pk/easypay-service/rest/v4/initiate-ma-transaction'),
-      headers: {
-        "Credentials": '${base64.encode(utf8.encode('rideoptions:d7d530ae300bf32090a2a0bc932ac708'))}',
-        "Content-Type": "application/json",
-      },
-      body: jsonBody,
-    );
-    print('json body: ${jsonBody}');
-    if (response.statusCode == 200) {
-      print("Transaction initiated successfully: ${response.body}");
-    } else {
-      print("Error initiating transaction. Status code: ${response.statusCode}");
-      print("Error initiating transaction. Status code: ${response.reasonPhrase}");
-      print("Response body: ${response.body}");
-    }
-  }}
+}

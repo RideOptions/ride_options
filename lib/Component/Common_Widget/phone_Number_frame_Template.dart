@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import '../theme/text_style_theme.dart';
 
+// ignore: must_be_immutable
 class PhoneNumberFrameTemplate extends StatelessWidget {
   String? hintText;
   Function()? onTap;
@@ -13,18 +12,20 @@ class PhoneNumberFrameTemplate extends StatelessWidget {
   FocusNode? focusNode;
   bool? isReadOnly;
 
-  PhoneNumberFrameTemplate({this.hintText, this.onTap, this.textController, required this.phoneCodeListItem,this.onSelected,this.focusNode,this.isReadOnly=false});
-
-
-
-
+  PhoneNumberFrameTemplate(
+      {this.hintText,
+      this.onTap,
+      this.textController,
+      required this.phoneCodeListItem,
+      this.onSelected,
+      this.focusNode,
+      this.isReadOnly = false});
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
-      width: MediaQuery.of(context).size.width ,
-      padding: EdgeInsets.symmetric(vertical: 0,horizontal: 15),
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -60,34 +61,36 @@ class PhoneNumberFrameTemplate extends StatelessWidget {
             child: Row(
               children: [
                 PopupMenuButton<String>(
-                  itemBuilder: (context) {
-                    return phoneCodeListItem.map((str) {
-                      return PopupMenuItem(
-                        value: str,
-                        child: Text(str,
-                            style:TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w100,
-                          fontSize: 14.0,
-                        )),
-                      );
-                    }).toList();
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text("+92",style: blackTextBoldIn14px(),),
-                      Icon(Icons.arrow_drop_down),
-                    ],
-                  ),
-                  onSelected: onSelected
-                ),
-                SizedBox(height: MediaQuery.of(context).viewInsets.bottom,)
+                    itemBuilder: (context) {
+                      return phoneCodeListItem.map((str) {
+                        return PopupMenuItem(
+                          value: str,
+                          child: Text(str,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w100,
+                                fontSize: 14.0,
+                              )),
+                        );
+                      }).toList();
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          "+92",
+                          style: blackTextBoldIn14px(),
+                        ),
+                        Icon(Icons.arrow_drop_down),
+                      ],
+                    ),
+                    onSelected: onSelected),
+                SizedBox(
+                  height: MediaQuery.of(context).viewInsets.bottom,
+                )
               ],
             ),
-
           ),
-
           Flexible(
             child: TextField(
               controller: textController,
@@ -96,14 +99,15 @@ class PhoneNumberFrameTemplate extends StatelessWidget {
               readOnly: isReadOnly!,
               focusNode: focusNode,
               textInputAction: TextInputAction.next,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle:  TextStyle(
+                hintStyle: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w100,
                   fontSize: 14.0,
                 ),
-                border: InputBorder.none,),
+                border: InputBorder.none,
+              ),
               style: blackTextRegularIn14px(),
             ),
           ),
@@ -114,7 +118,6 @@ class PhoneNumberFrameTemplate extends StatelessWidget {
           ),
         ],
       ),
-
     );
   }
 }

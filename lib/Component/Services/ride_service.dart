@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -61,12 +62,14 @@ class RideService {
     }
   }
 
+// this fuction for fetching drivers from firebase base on vihicleType
   Future<MyResponse> getAvailableDrivers(
       String vehicleType, BuildContext context) async {
     List<DriverUserModel> dummyList = [];
     MyResponse myResponse =
         MyResponse(success: false, message: "no data", data: null);
     print("vehicle type is: $vehicleType");
+    log("getAvailableDrivers fuction call ");
     try {
       var event = await FirebaseDatabase.instance
           .ref()
@@ -84,12 +87,11 @@ class RideService {
             await CommonFunctions().getCurrentLocation();
 
         for (int i = 0; i < myUser.length; i++) {
-          print("my users ${myUser[myUser.keys.toList()[i]]}");
+          // print("my users ${myUser[myUser.keys.toList()[i]]}");
           final driverDetail = myUser[myUser.keys.toList()[i]];
           DriverUserModel driverOrder = DriverUserModel.fromMap(driverDetail);
-          print("driver model: ${driverOrder.toMap()}");
+          print("driver model: ${driverOrder.active}");
           if (driverOrder.active == true) {
-
             if (driverOrder.location != null) {
               if (driverOrder.location?.lat != "" &&
                   driverOrder.location?.long != "") {
@@ -98,8 +100,8 @@ class RideService {
                     currentPosition.longitude,
                     driverOrder.location!.lat,
                     driverOrder.location!.long);
-                print("distance in km: $distance");
-                print("active ${driverOrder.active}");
+                // print("distance in km: $distance");
+                log("active ${driverOrder.active}");
                 if (driverOrder.status == Constant.accountApprovedStatus &&
                     distance < 5) {
                   dummyList.add(driverOrder);
@@ -108,8 +110,6 @@ class RideService {
             }
           }
         }
-
-
 
         myResponse.success = true;
         myResponse.data = "my data exit";
@@ -136,6 +136,7 @@ class RideService {
     }
   }
 
+// this fuction for fetching drivers from firebase base on vihicleType
   Future<MyResponse> getAvailableCarDrivers(String vehicleType) async {
     List<DriverUserModel> dummyList = [];
     MyResponse myResponse =
@@ -159,6 +160,7 @@ class RideService {
           final driverDetail = myUser[myUser.keys.toList()[i]];
           DriverUserModel driverOrder = DriverUserModel.fromMap(driverDetail);
           print("driver model: ${driverOrder.toMap()}");
+          log("getAvailableCarDrivers fuction call ");
           if (driverOrder.active == true) {
             Position? currentPosition =
                 await CommonFunctions().getCurrentLocation();
@@ -175,7 +177,6 @@ class RideService {
             }
           }
         }
-
 
         myResponse.success = true;
         myResponse.data = "my data exit";
@@ -261,6 +262,7 @@ class RideService {
       "status": status,
     });
   }
+  // this function for getting ride request
 
   Future<MyResponse> getRideRequestAsync(String uid) async {
     List<RideRequestModel> dummyList = [];
@@ -279,7 +281,6 @@ class RideService {
         final myUser = Map<dynamic, dynamic>.from(
             event.snapshot.value as Map<dynamic, dynamic>);
 
-
         for (var key in myUser.keys) {
           RideRequestModel model = RideRequestModel.fromMap(myUser[key]);
           dummyList.add(model);
@@ -288,12 +289,12 @@ class RideService {
         myResponse.success = true;
         myResponse.data = "my data exists";
         myResponse.data = dummyList;
+        log("myResponse:${myResponse.data}");
       }
-
 
       return myResponse;
     } on TimeoutException catch (ex) {
-      myResponse.message = "TimeoutException";
+      myResponse.message = "TimeoutException $ex";
       return myResponse;
     } catch (ex) {
       print("Exception getAvailableDrivers: $ex");
@@ -340,17 +341,18 @@ class RideService {
   }
 
   removeRideRequest(String rideId) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("SaTtAaYz").child('rideRequest');
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("SaTtAaYz").child('rideRequest');
     var event = await ref.orderByChild("rideId").equalTo(rideId).once();
     if (event.snapshot.exists) {
-      final myRide = Map<dynamic, dynamic>.from(event.snapshot.value as Map<dynamic, dynamic>);
+      final myRide = Map<dynamic, dynamic>.from(
+          event.snapshot.value as Map<dynamic, dynamic>);
       for (var entry in myRide.entries) {
         RideRequestModel model = RideRequestModel.fromMap(entry.value);
         await ref.child(model.id!).remove();
       }
     }
   }
-
 
   Future<MyResponse> rideDriverSessionAvailable(String uid) async {
     MyResponse myResponse =
