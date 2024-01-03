@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:rideoptions/Component/Dialogue/acitivity_indicator_dialogue.dart';
 import 'package:rideoptions/Component/Model/deposit/deposit_model.dart';
 import 'package:rideoptions/Component/Provider/auth_provider.dart';
 import 'package:rideoptions/main.dart';
@@ -16,7 +15,6 @@ import '../../Screens/Authentication/personal_detail_page.dart';
 import '../../Screens/Authentication/sign_up_form_page.dart';
 import '../../Screens/HomePage/BottomNavBar/customer_nav_bar_page.dart';
 import '../../Screens/HomePage/BottomNavBar/driver_nav_bar_page.dart';
-import '../../helper/colors.dart';
 import '../../role_screen.dart';
 import '../Common_Widget/show_snack_bar.dart';
 import '../Dialogue/app_dialogue.dart';
@@ -26,7 +24,6 @@ import '../Model/Authentication/user_model.dart';
 import '../Model/Package/package_model.dart';
 import '../common_function.dart';
 import '../constant.dart';
-import '../theme/app_theme.dart';
 import 'local_service.dart';
 
 class AuthenticateService {
@@ -141,7 +138,7 @@ class AuthenticateService {
   ) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     print("rebuild");
-    if (role == Constant.driverRole) {  
+    if (role == Constant.driverRole) {
       DriverUserModel? user = DriverCurrent;
       if (otpCode == random.toString()) {
         // print('helloasjdhvfasjndfbv asdv n\n\n\n\n\n\n ${user!.uid}');

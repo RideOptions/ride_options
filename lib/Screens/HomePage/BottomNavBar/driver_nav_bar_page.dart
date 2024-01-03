@@ -68,7 +68,7 @@ class _DriverNavBarPageState extends State<DriverNavBarPage> {
             OrderPage(),
             ActivityPage(),
             CommissionPage(
-                UModel:
+                userModel:
                     _user?.amount?.isNotEmpty ?? false ? _user!.amount! : '0',
                 throughOrderPage: false),
 

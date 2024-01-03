@@ -131,7 +131,8 @@ class _deposit_pageState extends State<deposit_page> {
                           aspectRatio: 16 / 9,
                           autoPlayCurve: Curves.fastOutSlowIn,
                           enableInfiniteScroll: true,
-                          autoPlayAnimationDuration: Duration(milliseconds: 800),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
                           viewportFraction: 1.0,
                           initialPage: 0,
                           onPageChanged: (index, reason) {
@@ -220,7 +221,8 @@ class _deposit_pageState extends State<deposit_page> {
                                 spreadRadius: 0.0,
                               ), //BoxShadow
                             ],
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -246,9 +248,11 @@ class _deposit_pageState extends State<deposit_page> {
                           openScreen(
                             context,
                             CommissionPage(
-                                UModel: _user?.amount?.isNotEmpty ?? false
-                                    ? _user!.amount!
-                                    : '0', throughOrderPage: false,),
+                              userModel: _user?.amount?.isNotEmpty ?? false
+                                  ? _user!.amount!
+                                  : '0',
+                              throughOrderPage: false,
+                            ),
                           );
                         },
                         child: Container(
@@ -271,7 +275,8 @@ class _deposit_pageState extends State<deposit_page> {
                                 spreadRadius: 0.0,
                               ), //BoxShadow
                             ],
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

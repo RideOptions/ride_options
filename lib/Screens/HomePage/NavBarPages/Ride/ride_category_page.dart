@@ -6,7 +6,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:rideoptions/helper/colors.dart';
 
 import '../../../../Component/Common_Widget/button_widget.dart';
 import '../../../../Component/Dialogue/acitivity_indicator_dialogue.dart';
@@ -49,7 +48,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
   List<LatLng> polylineCoordinates = [];
   double? distance;
   int bikePrice = 0;
-  int RickshawPrice = 0;
+  int rickshawPrice = 0;
   int miniPrice = 0;
   int goPrice = 0;
   int rideXPrice = 0;
@@ -190,11 +189,13 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                   return;
                                 } else {
                                   if (selectedVehicle == "MotorBike") {
+                                    log("bikePrice 0");
                                     selectedVehicle = null;
                                     selectedPrice = null;
                                   } else {
                                     selectedVehicle = "MotorBike";
                                     selectedPrice = bikePrice;
+                                    log("price:$bikePrice");
                                   }
                                   setState(() {});
                                 }
@@ -285,7 +286,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                             // this portion for rickshaw
                             GestureDetector(
                               onTap: () {
-                                if (RickshawPrice == 0) {
+                                if (rickshawPrice == 0) {
                                   return;
                                 } else {
                                   if (selectedVehicle == "Rickshaw") {
@@ -293,7 +294,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                     selectedPrice = null;
                                   } else {
                                     selectedVehicle = "Rickshaw";
-                                    selectedPrice = RickshawPrice;
+                                    selectedPrice = rickshawPrice;
                                   }
                                   setState(() {});
                                 }
@@ -368,7 +369,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
                                       ],
                                     ),
                                     Text(
-                                      "PKR $RickshawPrice",
+                                      "PKR $rickshawPrice",
                                       style: (selectedVehicle != null &&
                                               selectedVehicle == "Rickshaw")
                                           ? whiteTextRegularIn16px()
@@ -829,7 +830,6 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
   // }
 //  this fuction for calculate distance and finde drivers, also calculate price and show on screen
   initializeComponent() async {
-    log("initialize function call when ride request generated");
     rideProvider = Provider.of<RideProvider>(context, listen: false);
     userDetail = await LocalStorageService.getSignUpModel();
     sourceLocation =
@@ -842,6 +842,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
         widget.pickupLocation.long,
         widget.destinationLocation.lat,
         widget.destinationLocation.long);
+    log("distance: $distance");
 
     findDriver = widget.driverFinding ?? false;
 
@@ -865,7 +866,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
     var fareCalculator = FareCalculator({
       "MotorBike": VehicleRate(
         baseRate: 50,
-        ratePerKilometer: 16,
+        ratePerKilometer: 14,
         ratePerMint: 50,
       ),
       "Rickshaw":
@@ -881,7 +882,7 @@ class _RideCategoryPageState extends State<RideCategoryPage> {
     });
 
     bikePrice = fareCalculator.calculateFare("MotorBike", distance!);
-    RickshawPrice = fareCalculator.calculateFare("Rickshaw", distance!);
+    rickshawPrice = fareCalculator.calculateFare("Rickshaw", distance!);
     miniPrice = fareCalculator.calculateFare("Mini", distance!);
     goPrice = fareCalculator.calculateFare("RideGo", distance!);
     rideXPrice = fareCalculator.calculateFare("RideX", distance!);

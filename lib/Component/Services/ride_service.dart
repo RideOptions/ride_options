@@ -19,7 +19,7 @@ import '../constant.dart';
 
 class RideService {
   StreamSubscription? rideSteam;
-
+  DatabaseReference databaseRef = FirebaseDatabase.instance.ref();
   Future<MyResponse> getVehiclesRate() async {
     MyResponse myResponse =
         MyResponse(success: false, message: "no data", data: null);
@@ -65,11 +65,11 @@ class RideService {
 // this fuction for fetching drivers from firebase base on vihicleType
   Future<MyResponse> getAvailableDrivers(
       String vehicleType, BuildContext context) async {
+    // log("vehicleType: $vehicleType");
     List<DriverUserModel> dummyList = [];
     MyResponse myResponse =
         MyResponse(success: false, message: "no data", data: null);
-    print("vehicle type is: $vehicleType");
-    log("getAvailableDrivers fuction call ");
+
     try {
       var event = await FirebaseDatabase.instance
           .ref()
@@ -89,22 +89,29 @@ class RideService {
         for (int i = 0; i < myUser.length; i++) {
           // print("my users ${myUser[myUser.keys.toList()[i]]}");
           final driverDetail = myUser[myUser.keys.toList()[i]];
-          DriverUserModel driverOrder = DriverUserModel.fromMap(driverDetail);
-          print("driver model: ${driverOrder.active}");
-          if (driverOrder.active == true) {
-            if (driverOrder.location != null) {
-              if (driverOrder.location?.lat != "" &&
-                  driverOrder.location?.long != "") {
+          DriverUserModel driverUserModel =
+              DriverUserModel.fromMap(driverDetail);
+
+          if (driverUserModel.active == true) {
+            if (driverUserModel.location != null) {
+              if (driverUserModel.location?.lat != "" &&
+                  driverUserModel.location?.long != "") {
                 double distance = CommonFunctions().calculateDistance(
                     currentPosition!.latitude,
                     currentPosition.longitude,
-                    driverOrder.location!.lat,
-                    driverOrder.location!.long);
-                // print("distance in km: $distance");
-                log("active ${driverOrder.active}");
-                if (driverOrder.status == Constant.accountApprovedStatus &&
+                    driverUserModel.location!.lat,
+                    driverUserModel.location!.long);
+
+                // log("customer lat: ${currentPosition.latitude}");
+                // log("customer long: ${currentPosition.longitude}");
+                // log("driver lat: ${driverUserModel.location!.lat}");
+
+                // log("active user model data ${driverUserModel.phoneNumber}");
+                if (driverUserModel.status == Constant.accountApprovedStatus &&
                     distance < 5) {
-                  dummyList.add(driverOrder);
+                  dummyList.add(driverUserModel);
+                  log("driver long: $distance");
+                  // log("calling funtion under distance");
                 }
               }
             }
@@ -115,8 +122,6 @@ class RideService {
         myResponse.data = "my data exit";
         myResponse.data = dummyList;
       }
-
-      print("my response ${dummyList.length}");
 
       // showSnackBar(context,
       //     "my response ${dummyList.length}");
@@ -141,7 +146,7 @@ class RideService {
     List<DriverUserModel> dummyList = [];
     MyResponse myResponse =
         MyResponse(success: false, message: "no data", data: null);
-    print("vehicle type is: $vehicleType");
+
     try {
       var event = await FirebaseDatabase.instance
           .ref()
@@ -262,6 +267,7 @@ class RideService {
       "status": status,
     });
   }
+
   // this function for getting ride request
 
   Future<MyResponse> getRideRequestAsync(String uid) async {
@@ -277,13 +283,15 @@ class RideService {
           .equalTo(uid)
           .once()
           .timeout(Duration(seconds: 30));
+
       if (event.snapshot.exists) {
         final myUser = Map<dynamic, dynamic>.from(
             event.snapshot.value as Map<dynamic, dynamic>);
-
+        // log("Get Ride Request function calling${myUser}");
         for (var key in myUser.keys) {
           RideRequestModel model = RideRequestModel.fromMap(myUser[key]);
           dummyList.add(model);
+          log("getRideRequestAsync function use ${model.price}");
         }
 
         myResponse.success = true;
@@ -300,6 +308,97 @@ class RideService {
       print("Exception getAvailableDrivers: $ex");
       myResponse.message = "$ex";
       return myResponse;
+    }
+  }
+
+// this is my fuction fetching rideRequest from firebase using stream
+  StreamController<List<RideRequestModel>> _rideRequestsController =
+      StreamController<List<RideRequestModel>>.broadcast();
+
+  Stream<List<RideRequestModel>> get rideRequestsStream =>
+      _rideRequestsController.stream;
+
+  void disposeRideRequestsStream() {
+    _rideRequestsController.close();
+  }
+
+  void listenToRideRequests(String uid) {
+    log("listenToRide request call and uid $uid");
+    DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
+
+    databaseReference
+        .child('SaTtAaYz')
+        .child('rideRequest')
+        .orderByChild('driverId')
+        .equalTo(uid)
+        .onValue
+        .listen(
+      (DatabaseEvent event) {
+        try {
+          if (event.snapshot.value != null) {
+            final dynamic snapshotValue = event.snapshot.value;
+
+            if (snapshotValue is Map<Object?, Object?>) {
+              // If the snapshot value is a map, convert it to Map<String, dynamic>
+              Map<String, dynamic> data =
+                  Map<String, dynamic>.from(snapshotValue);
+
+              List<RideRequestModel> rideRequests = [];
+              // log("listenToRide request call and uid ${data}");
+              data.forEach((key, value) {
+                if (value is Map<String, dynamic>) {
+                  RideRequestModel rideRequest =
+                      RideRequestModel.fromMap(value);
+                  rideRequests.add(rideRequest);
+                  log("driver ID: ${rideRequest.driverId}, Price: ${rideRequest.price}");
+                }
+              });
+
+              // Send the updated list to the stream
+              _rideRequestsController.add(rideRequests);
+            } else {
+              log("Unexpected data format for UID: $uid. Snapshot value: $snapshotValue");
+            }
+          } else {
+            log("Snapshot value is null for UID: $uid");
+          }
+        } catch (e, stackTrace) {
+          log("Error in listenToRideRequests: $e\n$stackTrace");
+        }
+      },
+      onError: (Object? error) {
+        log("Error in listenToRideRequests: $error");
+      },
+      onDone: () {
+        log("listenToRideRequests: Done");
+      },
+      cancelOnError: true,
+    );
+  }
+
+  // this is my another function to fetching data from
+  Stream<List<RideRequestModel>> getRidesRequest(String uid) async* {
+    final rideStream = databaseRef
+        .child('SaTtAaYz')
+        .child('rideRequest')
+        .orderByChild('driverId')
+        .equalTo(uid)
+        .onValue;
+
+    await for (var event in rideStream) {
+      if (event.snapshot.value != null) {
+        final orderMap = Map<dynamic, dynamic>.from(
+            event.snapshot.value as Map<dynamic, dynamic>);
+
+        final orderList = orderMap.entries.map((e) {
+          return RideRequestModel.fromMap(Map<dynamic, dynamic>.from(e.value));
+        }).toList();
+
+        yield orderList;
+      } else {
+        yield [];
+        log("data not Found");
+      }
     }
   }
 

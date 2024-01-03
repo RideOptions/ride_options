@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rideoptions/Component/Common_Widget/button_widget.dart';
 import 'package:rideoptions/Component/theme/app_theme.dart';
 import 'package:rideoptions/Screens/Authentication/login_page.dart';
-import 'package:rideoptions/Screens/HomePage/NavBarPages/Order/order_page.dart';
-import 'package:rideoptions/helper/helper.dart';
 
 import 'Component/constant.dart';
-import 'Component/theme/text_style_theme.dart';
 
 class RolePage extends StatelessWidget {
   const RolePage({Key? key}) : super(key: key);

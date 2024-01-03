@@ -1,31 +1,31 @@
-import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:rideoptions/Component/Common_Widget/button_widget.dart';
 import 'package:rideoptions/main.dart';
+
 import '../../../../Component/Dialogue/acitivity_indicator_dialogue.dart';
 import '../../../../Component/Model/Authentication/user_model.dart';
 import '../../../../Component/Model/payment_history.dart';
 import '../../../../Component/Model/payment_response_model.dart';
 import '../../../../Component/Provider/package_provider.dart';
-import '../../../../Component/ad_mob/banner_ads.dart';
 import '../../../../Component/theme/app_theme.dart';
 import '../../../../Component/theme/text_style_theme.dart';
 import '../../BottomNavBar/driver_nav_bar_page.dart';
-import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class CommissionPage extends StatefulWidget {
   static const platform = const MethodChannel('com.flutter.khurramdev');
 
-  CommissionPage({required this.UModel, required this.throughOrderPage});
+  CommissionPage({required this.userModel, required this.throughOrderPage});
 
-  String? UModel;
+  String? userModel;
   bool throughOrderPage;
 
   @override
@@ -280,19 +280,19 @@ class _CommissionPageState extends State<CommissionPage> {
           PaymentResponseModel responseMessage = responseList
               .firstWhere((element) => element.key == "pp_ResponseMessage");
 
-          print("${responseList},  \ndqwerty");
-          print("${responseCode},  \n codessss");
-          print("${responseMessage},  \n messagees");
+          log("$responseList,  \ndqwerty");
+          log("$responseCode,  \n codessss");
+          log("$responseMessage,  \n messagees");
 
           if (responseCode.value == "000" || responseCode.value == "121") {
-            print("kashii 1234");
+            log("kashii 1234");
             final DatabaseReference databaseReference = FirebaseDatabase
                 .instance
                 .ref()
                 .child('SaTtAaYz')
                 .child('paymentHistory');
 
-            paymentHistory payment = paymentHistory(
+            PaymentHistory payment = PaymentHistory(
                 profielPic: _user!.profilePicture!,
                 name: _user!.name!,
                 type: 'Balance',
@@ -480,7 +480,7 @@ class _CommissionPageState extends State<CommissionPage> {
     };
 
     var updatedAmount = double.parse(paymentAmountController.value.text) +
-        double.parse(widget.UModel!);
+        double.parse(widget.userModel!);
     databaseReference1.update({"amount": updatedAmount.toString()});
     // Update the deposit child with the new data
     databaseReference.push().update(depositData).then((_) {

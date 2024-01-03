@@ -529,7 +529,7 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => car_details_update_page(
+                  builder: (context) => CarDetailsUpdatePage(
                         userModel: userModel,
                       )),
             );

@@ -1,7 +1,6 @@
-
 import '../Authentication/location.dart';
 
-class RideRequestModel{
+class RideRequestModel {
   String? id;
   String? rideId;
   String? driverId;
@@ -11,8 +10,15 @@ class RideRequestModel{
   int? price;
   int? timeStamp;
 
-  RideRequestModel({this.id, this.rideId, this.driverId, this.sourceLocation,this.rideType,
-      this.destinationLocation, this.price, this.timeStamp});
+  RideRequestModel(
+      {this.id,
+      this.rideId,
+      this.driverId,
+      this.sourceLocation,
+      this.rideType,
+      this.destinationLocation,
+      this.price,
+      this.timeStamp});
 
   Map<String, dynamic> toMap() {
     return {
@@ -34,9 +40,13 @@ class RideRequestModel{
       driverId: map['driverId'] == null ? "" : map['driverId'] as String,
       rideType: map['rideType'] == null ? "" : map['rideType'] as String,
       price: map['price'] == null ? 0 : map['price'] as int,
-      sourceLocation: map['sourceLocation'] == null ? null : toConvertyLocation(map['sourceLocation']),
-      destinationLocation: map['destinationLocation'] == null ? null : toConvertyLocation(map['destinationLocation']),
-      timeStamp: map['timeStamp']==null?0:map['timeStamp'] as int,
+      sourceLocation: map['sourceLocation'] == null
+          ? null
+          : toConvertyLocation(map['sourceLocation']),
+      destinationLocation: map['destinationLocation'] == null
+          ? null
+          : toConvertyLocation(map['destinationLocation']),
+      timeStamp: map['timeStamp'] == null ? 0 : map['timeStamp'] as int,
     );
   }
 

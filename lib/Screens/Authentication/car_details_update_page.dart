@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+
 import '../../Component/Bottom_Sheet/choose_photo_sheet.dart';
 import '../../Component/Common_Widget/app_frame_template.dart';
 import '../../Component/Common_Widget/button_widget.dart';
@@ -15,26 +16,26 @@ import '../../Component/common_function.dart';
 import '../../Component/theme/app_theme.dart';
 import '../../Component/theme/text_style_theme.dart';
 
-class car_details_update_page extends StatefulWidget {
+// ignore: must_be_immutable
+class CarDetailsUpdatePage extends StatefulWidget {
   UserModel userModel;
 
-  car_details_update_page({required this.userModel});
+  CarDetailsUpdatePage({required this.userModel});
 
   @override
-  State<car_details_update_page> createState() => _car_details_update_pageState();
+  State<CarDetailsUpdatePage> createState() => _CarDetailsUpdatePageState();
 }
 
-class _car_details_update_pageState extends State<car_details_update_page> {
-
+class _CarDetailsUpdatePageState extends State<CarDetailsUpdatePage> {
   AuthProvider? authProvider;
   TextEditingController vehicleNumberController = TextEditingController();
-  bool vehicleNumberErrorVisible=false;
-  bool vehicleColorErrorVisible=false;
-  bool vehicleCCErrorVisible=false;
-  bool cnicForntPhotoErrorVisible=false;
-  bool cnicBackPhotoErrorVisible=false;
-  bool licencePhotoErrorVisible=false;
-  bool vehicleDocumentsErrorVisible=false;
+  bool vehicleNumberErrorVisible = false;
+  bool vehicleColorErrorVisible = false;
+  bool vehicleCCErrorVisible = false;
+  bool cnicForntPhotoErrorVisible = false;
+  bool cnicBackPhotoErrorVisible = false;
+  bool licencePhotoErrorVisible = false;
+  bool vehicleDocumentsErrorVisible = false;
 
   List<String> vehicleColorList = [
     "White",
@@ -79,12 +80,14 @@ class _car_details_update_pageState extends State<car_details_update_page> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Sign Up',style: whiteAppBarTextStyle22px(),),
+        title: Text(
+          'Sign Up',
+          style: whiteAppBarTextStyle22px(),
+        ),
       ),
-      body: Consumer<AuthProvider>(builder:
-          (context, consumerAuthProvider,
-          child) {
-        return  GestureDetector(
+      body: Consumer<AuthProvider>(
+          builder: (context, consumerAuthProvider, child) {
+        return GestureDetector(
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
           },
@@ -97,11 +100,9 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Center(
                         child: Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "Vehicle Details",
@@ -112,25 +113,19 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                CommonFunctions()
-                                    .unFocus(context);
+                                CommonFunctions().unFocus(context);
 
-                                File? imageFile =
-                                await showModalBottomSheet(
+                                File? imageFile = await showModalBottomSheet(
                                   context: context,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.only(
-                                      topLeft:
-                                      Radius.circular(25.0),
-                                      topRight:
-                                      Radius.circular(25.0),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(25.0),
+                                      topRight: Radius.circular(25.0),
                                     ),
                                   ),
                                   // barrierDismissible: false,
 
-                                  builder:
-                                      (BuildContext context) {
+                                  builder: (BuildContext context) {
                                     return ChoosePhotoSheet();
                                   },
                                 );
@@ -139,31 +134,30 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                                   authProvider?.setVehiclePicture(imageFile);
                                 }
                               },
-                              child:(authProvider?.getVehiclePicture!=null)? CircleAvatar(
-                                  radius: 55,
-                                  backgroundColor: primaryColor,
-                                  child: CircleAvatar(
-                                    backgroundColor:
-                                    Colors.white,
-                                    radius: 50,
-                                    backgroundImage: FileImage(authProvider!.vehiclePicture!,),
-
-                                  )):CircleAvatar(
-                                  radius: 55,
-                                  backgroundColor: primaryColor,
-                                  child: CircleAvatar(
-                                      backgroundColor:
-                                      Colors.white,
-                                      radius: 50,
+                              child: (authProvider?.getVehiclePicture != null)
+                                  ? CircleAvatar(
+                                      radius: 55,
+                                      backgroundColor: primaryColor,
                                       child: CircleAvatar(
-                                        backgroundColor:
-                                        Colors.white,
-                                        radius: 15,
-                                        backgroundImage:
-                                        AssetImage(
-                                          'assets/images/camera_icon.png',
+                                        backgroundColor: Colors.white,
+                                        radius: 50,
+                                        backgroundImage: FileImage(
+                                          authProvider!.vehiclePicture!,
                                         ),
-                                      ))),
+                                      ))
+                                  : CircleAvatar(
+                                      radius: 55,
+                                      backgroundColor: primaryColor,
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          radius: 50,
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            radius: 15,
+                                            backgroundImage: AssetImage(
+                                              'assets/images/camera_icon.png',
+                                            ),
+                                          ))),
                             ),
                             SizedBox(
                               height: 5,
@@ -194,13 +188,9 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                       SizedBox(
                         height: 5,
                       ),
-
                       Text(
                         "*Format: ABC####",
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 12
-                        ),
+                        style: TextStyle(color: Colors.red, fontSize: 12),
                       ),
                       SizedBox(
                         height: 5,
@@ -217,26 +207,21 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                       ),
                       AppFrameTemplate(
                         customWidget: Container(
-                          margin:
-                          EdgeInsets.symmetric(vertical: 12.0),
+                          margin: EdgeInsets.symmetric(vertical: 12.0),
                           child: PopupMenuButton<String>(
                               constraints: BoxConstraints.expand(
-                                  width: size.width * 0.8,
-                                  height: 350),
+                                  width: size.width * 0.8, height: 350),
                               itemBuilder: (context) {
                                 return vehicleColorList.map((str) {
                                   return PopupMenuItem(
                                     value: str,
                                     child: Container(
-                                      width: MediaQuery.of(context)
-                                          .size
-                                          .width *
+                                      width: MediaQuery.of(context).size.width *
                                           0.6,
                                       child: Text(str,
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight:
-                                            FontWeight.w400,
+                                            fontWeight: FontWeight.w400,
                                             fontSize: 14.0,
                                           )),
                                     ),
@@ -246,17 +231,22 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  selectedVehicleColor!=null? Text(
-                                    selectedVehicleColor ??
-                                        "",
-                                    style: blackTextRegularIn14px(),
-                                  ): Row(
-                                    children: [
-                                      Text("Vehicle Color / ",style: greyTextRegularIn14px(),),
-                                      Text("سواری کا رنگ",style: blackTextRegularIn14px()),
-                                    ],
-                                  ),
-
+                                  selectedVehicleColor != null
+                                      ? Text(
+                                          selectedVehicleColor ?? "",
+                                          style: blackTextRegularIn14px(),
+                                        )
+                                      : Row(
+                                          children: [
+                                            Text(
+                                              "Vehicle Color / ",
+                                              style: greyTextRegularIn14px(),
+                                            ),
+                                            Text("سواری کا رنگ",
+                                                style:
+                                                    blackTextRegularIn14px()),
+                                          ],
+                                        ),
                                   Spacer(),
                                   Icon(
                                     Icons.keyboard_arrow_down,
@@ -281,143 +271,143 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                           style: errorMessageLightIn12px(),
                         ),
                       ),
-                      (widget.userModel.vehicleType=="Car")?  Column(
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppFrameTemplate(
-                            customWidget: Container(
-                              margin:
-                              EdgeInsets.symmetric(vertical: 12.0),
-                              child: PopupMenuButton<String>(
-                                  constraints: BoxConstraints.expand(
-                                      width: size.width * 0.8,
-                                      height: 250),
-                                  itemBuilder: (context) {
-                                    return vehicleCCList.map((str) {
-                                      return PopupMenuItem(
-                                        value: str,
-                                        child: Container(
-                                          width: MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                              0.6,
-                                          child: Text(str,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight:
-                                                FontWeight.w400,
-                                                fontSize: 14.0,
-                                              )),
+                      (widget.userModel.vehicleType == "Car")
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                AppFrameTemplate(
+                                  customWidget: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(vertical: 12.0),
+                                    child: PopupMenuButton<String>(
+                                        constraints: BoxConstraints.expand(
+                                            width: size.width * 0.8,
+                                            height: 250),
+                                        itemBuilder: (context) {
+                                          return vehicleCCList.map((str) {
+                                            return PopupMenuItem(
+                                              value: str,
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.6,
+                                                child: Text(str,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 14.0,
+                                                    )),
+                                              ),
+                                            );
+                                          }).toList();
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Text(
+                                              selectedVehicleCC ??
+                                                  "Select Vehicle CC",
+                                              style: (selectedVehicleCC == null)
+                                                  ? greyTextRegularIn14px()
+                                                  : blackTextRegularIn14px(),
+                                            ),
+                                            Spacer(),
+                                            Icon(
+                                              Icons.keyboard_arrow_down,
+                                              size: 30,
+                                              color: primaryColor,
+                                            )
+                                          ],
                                         ),
-                                      );
-                                    }).toList();
-                                  },
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Text(
-                                        selectedVehicleCC ??
-                                            "Select Vehicle CC",
-                                        style: (selectedVehicleCC ==
-                                            null)
-                                            ? greyTextRegularIn14px()
-                                            : blackTextRegularIn14px(),
-                                      ),
-                                      Spacer(),
-                                      Icon(
-                                        Icons.keyboard_arrow_down,
-                                        size: 30,
-                                        color: primaryColor,
-                                      )
-                                    ],
+                                        onSelected: (newValue) {
+                                          selectedVehicleCC = newValue;
+                                          setState(() {});
+                                        }),
                                   ),
-                                  onSelected: (newValue) {
-                                    selectedVehicleCC = newValue;
-                                    setState(() {});
-                                  }),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Visibility(
-                            visible: vehicleCCErrorVisible,
-                            child: Text(
-                              "please enter vehicle cc",
-                              style: errorMessageLightIn12px(),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Radio(value: vehicleAcValue??"", groupValue: "withOutAC",
-                                  activeColor: primaryColor,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      vehicleAcValue="withOutAC";
-                                    });
-                                  }
-                              ),
-                              GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      vehicleAcValue="withOutAC";
-                                    });
-                                  },
-                                  child: Text("WithOut AC"))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Radio(value: vehicleAcValue??"", groupValue: "withAC",
-                                  activeColor: primaryColor,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      vehicleAcValue="withAC";
-                                    });
-                                  }
-                              ),
-                              GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      vehicleAcValue="withAC";
-                                    });
-                                  },
-                                  child: Text("With AC"))
-                            ],
-                          ),
-                        ],
-                      ):Container(),
-
-                      SizedBox(height: 20,),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Visibility(
+                                  visible: vehicleCCErrorVisible,
+                                  child: Text(
+                                    "please enter vehicle cc",
+                                    style: errorMessageLightIn12px(),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                        value: vehicleAcValue ?? "",
+                                        groupValue: "withOutAC",
+                                        activeColor: primaryColor,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            vehicleAcValue = "withOutAC";
+                                          });
+                                        }),
+                                    GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            vehicleAcValue = "withOutAC";
+                                          });
+                                        },
+                                        child: Text("WithOut AC"))
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                        value: vehicleAcValue ?? "",
+                                        groupValue: "withAC",
+                                        activeColor: primaryColor,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            vehicleAcValue = "withAC";
+                                          });
+                                        }),
+                                    GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            vehicleAcValue = "withAC";
+                                          });
+                                        },
+                                        child: Text("With AC"))
+                                  ],
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Text(
                         "CNIC Front Photo / شناختی کارڈ  کی تصویر",
                         style: blackTextBoldIn14px(),
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Center(
                         child: GestureDetector(
                           onTap: () async {
-                            CommonFunctions()
-                                .unFocus(context);
+                            CommonFunctions().unFocus(context);
 
-                            File? imageFile =
-                            await showModalBottomSheet(
+                            File? imageFile = await showModalBottomSheet(
                               context: context,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.only(
-                                  topLeft:
-                                  Radius.circular(25.0),
-                                  topRight:
-                                  Radius.circular(25.0),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25.0),
+                                  topRight: Radius.circular(25.0),
                                 ),
                               ),
                               // barrierDismissible: false,
 
-                              builder:
-                                  (BuildContext context) {
+                              builder: (BuildContext context) {
                                 return ChoosePhotoSheet();
                               },
                             );
@@ -428,7 +418,7 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                           },
                           child: Container(
                             margin: EdgeInsets.all(1),
-                            width: size.width*0.65,
+                            width: size.width * 0.65,
                             height: 180,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -449,68 +439,80 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                                   spreadRadius: 0.0,
                                 ), //BoxShadow
                               ],
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                             ),
                             child: Center(
-                                child:(authProvider?.frontCNICPicture!=null)?
-                                Stack(
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.all(8),
-                                        child: Image.file(authProvider!.frontCNICPicture!,fit: BoxFit.fitWidth, width: size.width*0.65,)),
-                                    Positioned(
-                                        right: 0,
-                                        top: 0,
-                                        child: IconButton(
-                                            onPressed: (){
-                                              authProvider!.setFrontCNICPicture(null);
-                                            },
-                                            icon: Icon(Icons.delete,color: Colors.red,size: 30,))
-                                    )
-                                  ],
-                                ):Icon(Icons.add_photo_alternate,size: 80,color: primaryColor,)
-                            ),
+                                child: (authProvider?.frontCNICPicture != null)
+                                    ? Stack(
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.all(8),
+                                              child: Image.file(
+                                                authProvider!.frontCNICPicture!,
+                                                fit: BoxFit.fitWidth,
+                                                width: size.width * 0.65,
+                                              )),
+                                          Positioned(
+                                              right: 0,
+                                              top: 0,
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    authProvider!
+                                                        .setFrontCNICPicture(
+                                                            null);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                    size: 30,
+                                                  )))
+                                        ],
+                                      )
+                                    : Icon(
+                                        Icons.add_photo_alternate,
+                                        size: 80,
+                                        color: primaryColor,
+                                      )),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Visibility(
                         visible: cnicForntPhotoErrorVisible,
                         child: Text(
                           "please upload CNIC back picture",
-                          style:errorMessageLightIn12px(),
+                          style: errorMessageLightIn12px(),
                         ),
                       ),
-                      SizedBox(height: 15,),
-
+                      SizedBox(
+                        height: 15,
+                      ),
                       Text(
                         "CNIC Back Photo / شناختی کارڈ  کی تصویر",
                         style: blackTextBoldIn14px(),
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Center(
                         child: GestureDetector(
                           onTap: () async {
-                            CommonFunctions()
-                                .unFocus(context);
+                            CommonFunctions().unFocus(context);
 
-                            File? imageFile =
-                            await showModalBottomSheet(
+                            File? imageFile = await showModalBottomSheet(
                               context: context,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.only(
-                                  topLeft:
-                                  Radius.circular(25.0),
-                                  topRight:
-                                  Radius.circular(25.0),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25.0),
+                                  topRight: Radius.circular(25.0),
                                 ),
                               ),
                               // barrierDismissible: false,
 
-                              builder:
-                                  (BuildContext context) {
+                              builder: (BuildContext context) {
                                 return ChoosePhotoSheet();
                               },
                             );
@@ -521,7 +523,7 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                           },
                           child: Container(
                             margin: EdgeInsets.all(1),
-                            width: size.width*0.65,
+                            width: size.width * 0.65,
                             height: 180,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -542,68 +544,80 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                                   spreadRadius: 0.0,
                                 ), //BoxShadow
                               ],
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                             ),
                             child: Center(
-                                child:(authProvider?.backCNICPicture!=null)?
-                                Stack(
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.all(8),
-                                        child: Image.file(authProvider!.backCNICPicture!,fit: BoxFit.fitWidth, width: size.width*0.65,)),
-                                    Positioned(
-                                        right: 5,
-                                        top: 5,
-                                        child: IconButton(
-                                            onPressed: (){
-                                              authProvider!.setBackCNICPicture(null);
-                                            },
-                                            icon: Icon(Icons.delete,color: Colors.red,size: 30,))
-                                    )
-                                  ],
-                                ):Icon(Icons.add_photo_alternate,size: 80,color: primaryColor,)
-                            ),
+                                child: (authProvider?.backCNICPicture != null)
+                                    ? Stack(
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.all(8),
+                                              child: Image.file(
+                                                authProvider!.backCNICPicture!,
+                                                fit: BoxFit.fitWidth,
+                                                width: size.width * 0.65,
+                                              )),
+                                          Positioned(
+                                              right: 5,
+                                              top: 5,
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    authProvider!
+                                                        .setBackCNICPicture(
+                                                            null);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                    size: 30,
+                                                  )))
+                                        ],
+                                      )
+                                    : Icon(
+                                        Icons.add_photo_alternate,
+                                        size: 80,
+                                        color: primaryColor,
+                                      )),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Visibility(
                         visible: cnicBackPhotoErrorVisible,
                         child: Text(
                           "please upload CNIC back picture",
-                          style:errorMessageLightIn12px(),
+                          style: errorMessageLightIn12px(),
                         ),
                       ),
-                      SizedBox(height: 10,),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         "Vehicle Documents / سواری کے کاغذات",
                         style: blackTextBoldIn14px(),
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Center(
                         child: GestureDetector(
                           onTap: () async {
-                            CommonFunctions()
-                                .unFocus(context);
+                            CommonFunctions().unFocus(context);
 
-                            File? imageFile =
-                            await showModalBottomSheet(
+                            File? imageFile = await showModalBottomSheet(
                               context: context,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.only(
-                                  topLeft:
-                                  Radius.circular(25.0),
-                                  topRight:
-                                  Radius.circular(25.0),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25.0),
+                                  topRight: Radius.circular(25.0),
                                 ),
                               ),
                               // barrierDismissible: false,
 
-                              builder:
-                                  (BuildContext context) {
+                              builder: (BuildContext context) {
                                 return ChoosePhotoSheet();
                               },
                             );
@@ -614,7 +628,7 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                           },
                           child: Container(
                             margin: EdgeInsets.all(1),
-                            width: size.width*0.65,
+                            width: size.width * 0.65,
                             height: 180,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -635,68 +649,80 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                                   spreadRadius: 0.0,
                                 ), //BoxShadow
                               ],
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                             ),
                             child: Center(
-                                child:(authProvider?.vehicleDocuments!=null)?
-                                Stack(
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.all(8),
-                                        child: Image.file(authProvider!.vehicleDocuments!,fit: BoxFit.fitWidth, width: size.width*0.65,)),
-                                    Positioned(
-                                        right: 5,
-                                        top: 5,
-                                        child: IconButton(
-                                            onPressed: (){
-                                              authProvider!.setVehicleDocuments(null);
-                                            },
-                                            icon: Icon(Icons.delete,color: Colors.red,size: 30,))
-                                    )
-                                  ],
-                                ):Icon(Icons.add_photo_alternate,size: 80,color: primaryColor,)
-                            ),
+                                child: (authProvider?.vehicleDocuments != null)
+                                    ? Stack(
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.all(8),
+                                              child: Image.file(
+                                                authProvider!.vehicleDocuments!,
+                                                fit: BoxFit.fitWidth,
+                                                width: size.width * 0.65,
+                                              )),
+                                          Positioned(
+                                              right: 5,
+                                              top: 5,
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    authProvider!
+                                                        .setVehicleDocuments(
+                                                            null);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                    size: 30,
+                                                  )))
+                                        ],
+                                      )
+                                    : Icon(
+                                        Icons.add_photo_alternate,
+                                        size: 80,
+                                        color: primaryColor,
+                                      )),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Visibility(
                         visible: vehicleDocumentsErrorVisible,
                         child: Text(
                           "please upload vehicle documents",
-                          style:errorMessageLightIn12px(),
+                          style: errorMessageLightIn12px(),
                         ),
                       ),
-                      SizedBox(height: 10,),
-
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         "License Photo / لائسنس کی تصویر",
                         style: blackTextBoldIn14px(),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Center(
                         child: GestureDetector(
                           onTap: () async {
-                            CommonFunctions()
-                                .unFocus(context);
+                            CommonFunctions().unFocus(context);
 
-                            File? imageFile =
-                            await showModalBottomSheet(
+                            File? imageFile = await showModalBottomSheet(
                               context: context,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.only(
-                                  topLeft:
-                                  Radius.circular(25.0),
-                                  topRight:
-                                  Radius.circular(25.0),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25.0),
+                                  topRight: Radius.circular(25.0),
                                 ),
                               ),
                               // barrierDismissible: false,
 
-                              builder:
-                                  (BuildContext context) {
+                              builder: (BuildContext context) {
                                 return ChoosePhotoSheet();
                               },
                             );
@@ -707,7 +733,7 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                           },
                           child: Container(
                             margin: EdgeInsets.all(1),
-                            width: size.width*0.65,
+                            width: size.width * 0.65,
                             height: 180,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -728,32 +754,47 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                                   spreadRadius: 0.0,
                                 ), //BoxShadow
                               ],
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                             ),
                             child: Center(
-                                child:(authProvider?.licencePicture!=null)?
-                                Stack(
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.all(8),
-                                        child: Image.file(authProvider!.licencePicture!,fit: BoxFit.fitWidth, width: size.width*0.65,)),
-                                    Positioned(
-                                        right: 5,
-                                        top: 5,
-                                        child: IconButton(
-                                            onPressed: (){
-                                              authProvider!.setLicencePicture(null);
-                                            },
-                                            icon: Icon(Icons.delete,color: Colors.red,size: 30,))
-                                    )
-                                  ],
-                                ):Icon(Icons.add_photo_alternate,size: 80,color: primaryColor,)
-                            ),
+                                child: (authProvider?.licencePicture != null)
+                                    ? Stack(
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.all(8),
+                                              child: Image.file(
+                                                authProvider!.licencePicture!,
+                                                fit: BoxFit.fitWidth,
+                                                width: size.width * 0.65,
+                                              )),
+                                          Positioned(
+                                              right: 5,
+                                              top: 5,
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    authProvider!
+                                                        .setLicencePicture(
+                                                            null);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                    size: 30,
+                                                  )))
+                                        ],
+                                      )
+                                    : Icon(
+                                        Icons.add_photo_alternate,
+                                        size: 80,
+                                        color: primaryColor,
+                                      )),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Visibility(
                         visible: licencePhotoErrorVisible,
                         child: Text(
@@ -761,19 +802,19 @@ class _car_details_update_pageState extends State<car_details_update_page> {
                           style: errorMessageLightIn12px(),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       buttonWidget(
                           context: context,
                           color: primaryColor,
                           text: "Next",
-                          onPress: () async{
-                            if(widget.userModel.vehicleType=="Car"){
+                          onPress: () async {
+                            if (widget.userModel.vehicleType == "Car") {
                               await carValidationClicked();
-                            }
-                            else{
+                            } else {
                               await nextButtonClicked();
                             }
-
                           }),
                     ],
                   ),
@@ -786,161 +827,195 @@ class _car_details_update_pageState extends State<car_details_update_page> {
     );
   }
 
-  initializeComponent() async{
-    authProvider=Provider.of<AuthProvider>(context,listen: false);
+  initializeComponent() async {
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
   }
-  nextButtonClicked()async{
-    try{
-      vehicleNumberErrorVisible=false;
-      vehicleColorErrorVisible=false;
-      cnicForntPhotoErrorVisible=false;
-      cnicBackPhotoErrorVisible=false;
-      vehicleDocumentsErrorVisible=false;
-      licencePhotoErrorVisible=false;
+
+  nextButtonClicked() async {
+    try {
+      vehicleNumberErrorVisible = false;
+      vehicleColorErrorVisible = false;
+      cnicForntPhotoErrorVisible = false;
+      cnicBackPhotoErrorVisible = false;
+      vehicleDocumentsErrorVisible = false;
+      licencePhotoErrorVisible = false;
       String? vehiclePicUrl;
-      if(vehicleNumberController.text.isNotEmpty && selectedVehicleColor!=null &&
-          authProvider!.frontCNICPicture!=null && authProvider!.vehicleDocuments!=null
-          && authProvider!.backCNICPicture!=null && authProvider!.licencePicture!=null&&authProvider!.vehiclePicture != null){
-        loadingAlertDialog(context:context,text: "Fetching details....",color: Colors.red);
-        vehiclePicUrl = await CommonFunctions().submitSubscription(file: authProvider!.vehiclePicture!,filename: "picture.png");
-        String CNICForntPic = await CommonFunctions().submitSubscription(file: authProvider!.frontCNICPicture!,filename: "picture.png");
+      if (vehicleNumberController.text.isNotEmpty &&
+          selectedVehicleColor != null &&
+          authProvider!.frontCNICPicture != null &&
+          authProvider!.vehicleDocuments != null &&
+          authProvider!.backCNICPicture != null &&
+          authProvider!.licencePicture != null &&
+          authProvider!.vehiclePicture != null) {
+        loadingAlertDialog(
+            context: context, text: "Fetching details....", color: Colors.red);
+        vehiclePicUrl = await CommonFunctions().submitSubscription(
+            file: authProvider!.vehiclePicture!, filename: "picture.png");
+        String CNICForntPic = await CommonFunctions().submitSubscription(
+            file: authProvider!.frontCNICPicture!, filename: "picture.png");
         Navigator.pop(context);
-        loadingAlertDialog(context:context,text: "Verifying documents....",color: Colors.orange);
-        String CNICBackPic = await CommonFunctions().submitSubscription(file: authProvider!.backCNICPicture!,filename: "picture.png");
-        String licencePic = await CommonFunctions().submitSubscription(file: authProvider!.licencePicture!,filename: "picture.png");
+        loadingAlertDialog(
+            context: context,
+            text: "Verifying documents....",
+            color: Colors.orange);
+        String CNICBackPic = await CommonFunctions().submitSubscription(
+            file: authProvider!.backCNICPicture!, filename: "picture.png");
+        String licencePic = await CommonFunctions().submitSubscription(
+            file: authProvider!.licencePicture!, filename: "picture.png");
         Navigator.pop(context);
-        loadingAlertDialog(context:context);
-        String docUrl = await CommonFunctions().submitSubscription(file: authProvider!.vehicleDocuments!,filename: "picture.png");
-        List<String> CINCPictureList=[];
+        loadingAlertDialog(context: context);
+        String docUrl = await CommonFunctions().submitSubscription(
+            file: authProvider!.vehicleDocuments!, filename: "picture.png");
+        List<String> CINCPictureList = [];
         CINCPictureList.add(CNICForntPic);
         CINCPictureList.add(CNICBackPic);
-        widget.userModel.vehiclePicture=vehiclePicUrl;
-        widget.userModel.licencePhoto=licencePic;
-        widget.userModel.nationalIdCardPhotos=CINCPictureList;
-        widget.userModel.vehicleNumber=vehicleNumberController.text;
-        widget.userModel.vehicleColor=selectedVehicleColor;
-        widget.userModel.documentPhoto=docUrl;
+        widget.userModel.vehiclePicture = vehiclePicUrl;
+        widget.userModel.licencePhoto = licencePic;
+        widget.userModel.nationalIdCardPhotos = CINCPictureList;
+        widget.userModel.vehicleNumber = vehicleNumberController.text;
+        widget.userModel.vehicleColor = selectedVehicleColor;
+        widget.userModel.documentPhoto = docUrl;
 
-
-        await authProvider?.submitDriverUserDetailsMethod(context: context, model: widget.userModel);
-
-
-      }else{
-        if(vehicleNumberController.text.isEmpty){
-          vehicleNumberErrorVisible=true;
+        await authProvider?.submitDriverUserDetailsMethod(
+            context: context, model: widget.userModel);
+      } else {
+        if (vehicleNumberController.text.isEmpty) {
+          vehicleNumberErrorVisible = true;
         }
-        if(selectedVehicleColor==null){
-          vehicleColorErrorVisible=true;
+        if (selectedVehicleColor == null) {
+          vehicleColorErrorVisible = true;
         }
-        if(authProvider!.frontCNICPicture==null ){
-          cnicForntPhotoErrorVisible=true;
+        if (authProvider!.frontCNICPicture == null) {
+          cnicForntPhotoErrorVisible = true;
         }
-        if(authProvider!.backCNICPicture==null ){
-          cnicBackPhotoErrorVisible=true;
+        if (authProvider!.backCNICPicture == null) {
+          cnicBackPhotoErrorVisible = true;
         }
-        if(authProvider!.vehicleDocuments==null ){
-          vehicleDocumentsErrorVisible=true;
+        if (authProvider!.vehicleDocuments == null) {
+          vehicleDocumentsErrorVisible = true;
         }
-        if(authProvider!.licencePicture==null){
-          licencePhotoErrorVisible=true;
+        if (authProvider!.licencePicture == null) {
+          licencePhotoErrorVisible = true;
         }
-        if(authProvider!.vehiclePicture == null){
+        if (authProvider!.vehiclePicture == null) {
           showDialog(
             context: context,
-            builder: (ctx) => AppDialogue(title: "Alert",description: "please upload your vehicle picture.",cancelBtnVisible: false, confirmBthText: "ok",),);
+            builder: (ctx) => AppDialogue(
+              title: "Alert",
+              description: "please upload your vehicle picture.",
+              cancelBtnVisible: false,
+              confirmBthText: "ok",
+            ),
+          );
         }
         setState(() {});
       }
-
-    }catch(ex){
+    } catch (ex) {
       Navigator.pop(context);
       print("Exception:$ex");
     }
-
-
   }
-  carValidationClicked()async{
-    try{
-      vehicleNumberErrorVisible=false;
-      vehicleColorErrorVisible=false;
-      vehicleCCErrorVisible=false;
-      cnicForntPhotoErrorVisible=false;
-      cnicBackPhotoErrorVisible=false;
-      vehicleDocumentsErrorVisible=false;
-      licencePhotoErrorVisible=false;
+
+  carValidationClicked() async {
+    try {
+      vehicleNumberErrorVisible = false;
+      vehicleColorErrorVisible = false;
+      vehicleCCErrorVisible = false;
+      cnicForntPhotoErrorVisible = false;
+      cnicBackPhotoErrorVisible = false;
+      vehicleDocumentsErrorVisible = false;
+      licencePhotoErrorVisible = false;
       String? vehiclePicUrl;
-      if(vehicleNumberController.text.isNotEmpty && selectedVehicleColor!=null && selectedVehicleCC!=null &&
-          authProvider!.frontCNICPicture!=null && authProvider!.vehicleDocuments!=null
-          && authProvider!.backCNICPicture!=null && authProvider!.licencePicture!=null&&authProvider!.vehiclePicture != null){
-        loadingAlertDialog(context:context,text: "uploading....",color: Colors.red);
-        vehiclePicUrl = await CommonFunctions().submitSubscription(file: authProvider!.vehiclePicture!,filename: "picture.png");
-        String CNICForntPic = await CommonFunctions().submitSubscription(file: authProvider!.frontCNICPicture!,filename: "picture.png");
+      if (vehicleNumberController.text.isNotEmpty &&
+          selectedVehicleColor != null &&
+          selectedVehicleCC != null &&
+          authProvider!.frontCNICPicture != null &&
+          authProvider!.vehicleDocuments != null &&
+          authProvider!.backCNICPicture != null &&
+          authProvider!.licencePicture != null &&
+          authProvider!.vehiclePicture != null) {
+        loadingAlertDialog(
+            context: context, text: "uploading....", color: Colors.red);
+        vehiclePicUrl = await CommonFunctions().submitSubscription(
+            file: authProvider!.vehiclePicture!, filename: "picture.png");
+        String CNICForntPic = await CommonFunctions().submitSubscription(
+            file: authProvider!.frontCNICPicture!, filename: "picture.png");
         Navigator.pop(context);
-        loadingAlertDialog(context:context,text: "verifying documents....",color: Colors.yellow);
-        String CNICBackPic = await CommonFunctions().submitSubscription(file: authProvider!.backCNICPicture!,filename: "picture.png");
-        String licencePic = await CommonFunctions().submitSubscription(file: authProvider!.licencePicture!,filename: "picture.png");
+        loadingAlertDialog(
+            context: context,
+            text: "verifying documents....",
+            color: Colors.yellow);
+        String CNICBackPic = await CommonFunctions().submitSubscription(
+            file: authProvider!.backCNICPicture!, filename: "picture.png");
+        String licencePic = await CommonFunctions().submitSubscription(
+            file: authProvider!.licencePicture!, filename: "picture.png");
         Navigator.pop(context);
-        loadingAlertDialog(context:context);
-        String docUrl = await CommonFunctions().submitSubscription(file: authProvider!.vehicleDocuments!,filename: "picture.png");
-        List<String> CINCPictureList=[];
+        loadingAlertDialog(context: context);
+        String docUrl = await CommonFunctions().submitSubscription(
+            file: authProvider!.vehicleDocuments!, filename: "picture.png");
+        List<String> CINCPictureList = [];
         CINCPictureList.add(CNICForntPic);
         CINCPictureList.add(CNICBackPic);
-        widget.userModel.vehiclePicture=vehiclePicUrl;
-        widget.userModel.licencePhoto=licencePic;
-        widget.userModel.nationalIdCardPhotos=CINCPictureList;
-        widget.userModel.vehicleNumber=vehicleNumberController.text;
-        widget.userModel.vehicleColor=selectedVehicleColor;
-        widget.userModel.documentPhoto=docUrl;
-        if(vehicleAcValue=="withAC" &&  int.parse(selectedVehicleCC!)<=1000){
-          widget.userModel.Mini=true;
-          widget.userModel.RideGo=true;
-          widget.userModel.RideX=false;
-        }
-        else if(vehicleAcValue=="withAC" &&  int.parse(selectedVehicleCC!)>1000)
-        {
-          widget.userModel.Mini=true;
-          widget.userModel.RideGo=true;
-          widget.userModel.RideX=true;
-
-        }
-        else{
-          widget.userModel.Mini=true;
-          widget.userModel.RideGo=false;
-          widget.userModel.RideX=false;
+        widget.userModel.vehiclePicture = vehiclePicUrl;
+        widget.userModel.licencePhoto = licencePic;
+        widget.userModel.nationalIdCardPhotos = CINCPictureList;
+        widget.userModel.vehicleNumber = vehicleNumberController.text;
+        widget.userModel.vehicleColor = selectedVehicleColor;
+        widget.userModel.documentPhoto = docUrl;
+        if (vehicleAcValue == "withAC" &&
+            int.parse(selectedVehicleCC!) <= 1000) {
+          widget.userModel.Mini = true;
+          widget.userModel.RideGo = true;
+          widget.userModel.RideX = false;
+        } else if (vehicleAcValue == "withAC" &&
+            int.parse(selectedVehicleCC!) > 1000) {
+          widget.userModel.Mini = true;
+          widget.userModel.RideGo = true;
+          widget.userModel.RideX = true;
+        } else {
+          widget.userModel.Mini = true;
+          widget.userModel.RideGo = false;
+          widget.userModel.RideX = false;
         }
 
-        await authProvider?.updateDriverUserDetailsMethod(context: context, model: widget.userModel);
-      }else{
-        if(vehicleNumberController.text.isEmpty){
-          vehicleNumberErrorVisible=true;
+        await authProvider?.updateDriverUserDetailsMethod(
+            context: context, model: widget.userModel);
+      } else {
+        if (vehicleNumberController.text.isEmpty) {
+          vehicleNumberErrorVisible = true;
         }
-        if(selectedVehicleColor==null){
-          vehicleColorErrorVisible=true;
+        if (selectedVehicleColor == null) {
+          vehicleColorErrorVisible = true;
         }
-        if(selectedVehicleCC==null){
-          vehicleCCErrorVisible=true;
+        if (selectedVehicleCC == null) {
+          vehicleCCErrorVisible = true;
         }
-        if(authProvider!.frontCNICPicture==null ){
-          cnicForntPhotoErrorVisible=true;
+        if (authProvider!.frontCNICPicture == null) {
+          cnicForntPhotoErrorVisible = true;
         }
-        if(authProvider!.backCNICPicture==null ){
-          cnicBackPhotoErrorVisible=true;
+        if (authProvider!.backCNICPicture == null) {
+          cnicBackPhotoErrorVisible = true;
         }
-        if(authProvider!.vehicleDocuments==null ){
-          vehicleDocumentsErrorVisible=true;
+        if (authProvider!.vehicleDocuments == null) {
+          vehicleDocumentsErrorVisible = true;
         }
-        if(authProvider!.licencePicture==null){
-          licencePhotoErrorVisible=true;
+        if (authProvider!.licencePicture == null) {
+          licencePhotoErrorVisible = true;
         }
-        if(authProvider!.vehiclePicture == null){
+        if (authProvider!.vehiclePicture == null) {
           showDialog(
             context: context,
-            builder: (ctx) => AppDialogue(title: "Alert",description: "please upload your vehicle picture.",cancelBtnVisible: false, confirmBthText: "ok",),);
+            builder: (ctx) => AppDialogue(
+              title: "Alert",
+              description: "please upload your vehicle picture.",
+              cancelBtnVisible: false,
+              confirmBthText: "ok",
+            ),
+          );
         }
         setState(() {});
       }
-
-    }catch(ex){
+    } catch (ex) {
       Navigator.pop(context);
       print("Exception:$ex");
     }

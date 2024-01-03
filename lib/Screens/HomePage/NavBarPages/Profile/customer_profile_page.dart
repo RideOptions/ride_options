@@ -160,7 +160,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => WalletPage(
-                                          UModel: userDetail,
+                                          userModel: userDetail,
                                         )),
                               );
                             },

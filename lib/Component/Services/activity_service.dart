@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_database/firebase_database.dart';
 
@@ -27,7 +28,7 @@ class ActivityService {
           dummyList.add(model);
         });
 
-        print("my activity data is: ${dummyList.length}");
+        log("my activity data is: ${dummyList.length}");
 
         myResponse.success = true;
         myResponse.data = "my data exit";
@@ -37,9 +38,10 @@ class ActivityService {
       return myResponse;
     } on TimeoutException catch (ex) {
       myResponse.message = "TimeoutException";
+      log("Activicty Screen error$ex");
       return myResponse;
     } catch (ex) {
-      print("Exception rideSessionAvailable: $ex");
+      log("Exception rideSessionAvailable: $ex");
       myResponse.message = "$ex";
       return myResponse;
     }

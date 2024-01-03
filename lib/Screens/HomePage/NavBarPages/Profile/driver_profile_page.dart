@@ -331,7 +331,7 @@ class _DriverProfilePageState extends State<DriverProfilePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        WalletPage(UModel: _user)),
+                                        WalletPage(userModel: _user)),
                               );
                             },
                             child: Container(

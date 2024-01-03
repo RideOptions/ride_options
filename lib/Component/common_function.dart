@@ -252,7 +252,7 @@ class CommonFunctions {
         });
       }
     } catch (ex) {
-      print("Exception set device token: ${ex}");
+      print("Exception set device token: $ex");
     }
   }
 
@@ -267,9 +267,9 @@ class CommonFunctions {
       print(userModel?.toMap());
       if (userModel!.deviceToken!.isNotEmpty) {
         list = userModel.deviceToken;
-        print("device token list count:${list}");
+        print("device token list count:$list");
         list?.removeWhere((element) => element == token);
-        print("count: ${list}");
+        print("count: $list");
         await FirebaseDatabase.instance
             .ref()
             .child('SaTtAaYz')
@@ -307,6 +307,7 @@ class CommonFunctions {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Future<String?> GetAddressFromLatLong(Position position) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
@@ -326,11 +327,12 @@ class CommonFunctions {
     return address;
   }
 
+  // calculate Distance from lat and long
   double calculateDistance(lat1, lon1, lat2, lon2) {
     const double radiusOfEarth = 6371; // Radius of the Earth in kilometers
     double latDistance = _toRadians(lat2 - lat1);
     double lonDistance = _toRadians(lon2 - lon1);
-
+    // print("latDistance $latDistance");
     // Haversine formula
     double a = sin(latDistance / 2) * sin(latDistance / 2) +
         cos(_toRadians(lat1)) *
@@ -346,7 +348,26 @@ class CommonFunctions {
     return degree * pi / 180;
   }
 
-  // double calculateDistance(lat1, lon1, lat2, lon2) {
+  double distance(double lat1, double lon1, double lat2, double lon2) {
+    const r = 6372.8; // Earth radius in kilometers
+
+    final dLat = _toRadians2(lat2 - lat1);
+    final dLon = _toRadians2(lon2 - lon1);
+    final lat1Radians = _toRadians2(lat1);
+    final lat2Radians = _toRadians2(lat2);
+
+    final a =
+        _haversin(dLat) + cos(lat1Radians) * cos(lat2Radians) * _haversin(dLon);
+    final c = 2 * asin(sqrt(a));
+
+    return r * c;
+  }
+
+  double _toRadians2(double degrees) => degrees * pi / 180;
+
+  double _haversin(double radians) => pow(sin(radians / 2), 2).toDouble();
+
+  // double calculateDistance2(lat1, lon1, lat2, lon2) {
   //   // var p = 0.017453292519943295;
   //   // var a = 0.5 -
   //   //     cos((lat2 - lat1) * p) / 2 +

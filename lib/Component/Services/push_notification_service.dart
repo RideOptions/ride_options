@@ -57,10 +57,9 @@ class PushNotificationService {
         }
         print("message foreground ---------------------------");
 
-        if(!CommonFunctions.chatScreen){
+        if (!CommonFunctions.chatScreen) {
           performAndManageLocalNotification(message);
         }
-
       });
     } catch (e, stackTrack) {
       print('_MyAppState.initState: e: $e: stackTrack: $stackTrack');
@@ -80,38 +79,32 @@ class PushNotificationService {
     print("==============Background Notification============");
     String? senderID = notification.toMap()['data']['message'];
     String? notificationType = notification.toMap()['data']['type'];
-    String? notificationId= notification.toMap()['data']['notificationId'];
-
-
+    String? notificationId = notification.toMap()['data']['notificationId'];
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-     UserModel? user= await LocalStorageService.getSignUpModel();
-      if(user!=null && user.userType==Constant.customerRole){
+      UserModel? user = await LocalStorageService.getSignUpModel();
+      if (user != null && user.userType == Constant.customerRole) {
+        Navigator.of(Constant.navState.currentContext!).push(
+            MaterialPageRoute(builder: (context) => CustomerNavBarPage()));
+      } else {
         Navigator.of(Constant.navState.currentContext!)
-            .push(MaterialPageRoute(
-            builder: (context) => CustomerNavBarPage()));
-      }else{
-        Navigator.of(Constant.navState.currentContext!)
-            .push(MaterialPageRoute(
-            builder: (context) => DriverNavBarPage()));
+            .push(MaterialPageRoute(builder: (context) => DriverNavBarPage()));
       }
-
-
     });
   }
 
   performAndManageLocalNotification(RemoteMessage message) async {
     print("==============Local Notification============");
-    if(message.notification?.title=="Ride Request"){
+    if (message.notification?.title == "Ride Request") {
       UserModel? userDetail = await LocalStorageService.getSignUpModel();
-      Provider.of<RideProvider>(context,listen: false).getRideRequestMethod(uid: userDetail!.uid!);
+      Provider.of<RideProvider>(context, listen: false)
+          .getRideRequestMethod(uid: userDetail!.uid!);
     }
 
     showSimpleNotification(
       InkWell(
           onTap: () {
             //  PerformNotificationNavigation(notification);
-
           },
           child: Text(
             message.notification?.title ?? "",
@@ -131,13 +124,12 @@ class PushNotificationService {
       duration: const Duration(seconds: 5),
       subtitle: InkWell(
           onTap: () {
-
             // OverlaySupportEntry.of(context)!.dismiss();
             // PerformNotificationNavigation(notification);
           },
           child: Text(
             message.notification!.body ?? "",
-            style:  TextStyle(
+            style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w100,
               fontSize: 14.0,

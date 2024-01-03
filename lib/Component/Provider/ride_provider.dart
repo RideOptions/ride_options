@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,15 +26,6 @@ class RideProvider with ChangeNotifier {
 
   void setVehicleRateList(List<VehicleRateModel> value) {
     vehicleRateList = value;
-    notifyListeners();
-  }
-
-  List<RideRequestModel> rideRequestList = [];
-
-  List<RideRequestModel> get getRideRequestList => rideRequestList;
-
-  void setRideRequestList(List<RideRequestModel> value) {
-    rideRequestList = value;
     notifyListeners();
   }
 
@@ -85,6 +78,7 @@ class RideProvider with ChangeNotifier {
         vehicleType == Constant.rideGoVehicleType ||
         vehicleType == Constant.rideXVehicleType) {
       result = await RideService().getAvailableDrivers(vehicleType, context);
+      // log('result${result.data}');
     } else {
       result = await RideService().getAvailableCarDrivers(vehicleType);
     }
@@ -92,19 +86,22 @@ class RideProvider with ChangeNotifier {
     // showSnackBar(context,
     //     "result is: ${result.success}");
 
-    print("result is: ${result.success}");
+    // log("result is: ${result.success}");
     if (result.success) {
       DatabaseReference ref =
           FirebaseDatabase.instance.ref("SaTtAaYz").child('rideRequest');
       DatabaseReference ref2 =
           FirebaseDatabase.instance.ref("SaTtAaYz").child('ride');
       String? rideId = ref2.push().key;
+
       List<DriverUserModel> dummyList = result.data as List<DriverUserModel>;
-      print("driver request list ${dummyList.length}");
+
       if (dummyList.isNotEmpty) {
+        log("dumy list not empty");
         int currentTimeStamp = await GlobalService().getCurrentTime();
         for (int i = 0; i < dummyList.length; i++) {
           String? nodeKey = ref.push().key;
+
           RideRequestModel requestModel = RideRequestModel(
               id: nodeKey,
               driverId: dummyList[i].uid,
@@ -131,6 +128,8 @@ class RideProvider with ChangeNotifier {
         await ref2.child(rideId!).set(rideModel.toMap());
         setRideId(rideId);
         RideService().listenRideNode(rideId);
+      } else {
+        log("demmy list empty");
       }
     }
   }
@@ -162,6 +161,16 @@ class RideProvider with ChangeNotifier {
   }
 
 // this fuction for get Ride Request
+
+  List<RideRequestModel> rideRequestList = [];
+
+  List<RideRequestModel> get getRideRequestList => rideRequestList;
+
+  void setRideRequestList(List<RideRequestModel> value) {
+    rideRequestList = value;
+    notifyListeners();
+  }
+
   getRideRequestMethod({required String uid}) async {
     MyResponse response = await RideService().getRideRequestAsync(uid);
     if (response.success) {
@@ -174,6 +183,7 @@ class RideProvider with ChangeNotifier {
         rideRequestList = [];
       }
     } else {
+      print("ride list length: ${rideRequestList.length}");
       rideRequestList = [];
     }
     notifyListeners();

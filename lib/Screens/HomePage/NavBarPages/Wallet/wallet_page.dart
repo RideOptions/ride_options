@@ -8,10 +8,11 @@ import '../../../../Component/common_function.dart';
 import '../../../../Component/theme/app_theme.dart';
 import '../../../../Component/theme/text_style_theme.dart';
 
+// ignore: must_be_immutable
 class WalletPage extends StatefulWidget {
-  WalletPage({required this.UModel});
+  WalletPage({required this.userModel});
 
-  UserModel? UModel;
+  UserModel? userModel;
 
   @override
   State<WalletPage> createState() => _WalletPageState();
@@ -23,7 +24,7 @@ class _WalletPageState extends State<WalletPage> {
   @override
   void initState() {
     super.initState();
-    print("1234, ${widget.UModel!.amount}");
+    // print("1234, ${widget.userModel!.amount}");
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       initializeComponent();
     });
@@ -31,6 +32,7 @@ class _WalletPageState extends State<WalletPage> {
 
   @override
   Widget build(BuildContext context) {
+    // print("Amount: ${widget.userModel!.amount}");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: GestureDetector(
@@ -123,9 +125,10 @@ class _WalletPageState extends State<WalletPage> {
                                       style: blackTextBoldIn16px(),
                                     ),
                                     Text(
-                                      widget.UModel?.amount?.isNotEmpty ?? false
-                                          ? '${roundDouble(double.parse(widget.UModel!.amount!.toString()))}'
-                                          : '0.00 PKR' ,
+                                      widget.userModel?.amount?.isNotEmpty ??
+                                              false
+                                          ? '${roundDouble(double.parse(widget.userModel!.amount!.toString()))}'
+                                          : '0.00 PKR',
                                       // "${"0.0"} PKR",
                                       style: greyTextRegularIn16px(),
                                     ),
@@ -224,7 +227,7 @@ class _WalletPageState extends State<WalletPage> {
                                                               blackTextBoldIn14px(),
                                                         ),
                                                         Text(
-                                                          "${widget.UModel!.vehicleType == 'MotorBike' ? roundDouble(8 / 100 * earningProvider!.earningList[index].price!.toDouble()) : widget.UModel!.vehicleType == 'Car' ? roundDouble(12 / 100 * earningProvider!.earningList[index].price!.toDouble()) : roundDouble(10 / 100 * earningProvider!.earningList[index].price!.toDouble())}",
+                                                          "${widget.userModel!.vehicleType == 'MotorBike' ? roundDouble(8 / 100 * earningProvider!.earningList[index].price!.toDouble()) : widget.userModel!.vehicleType == 'Car' ? roundDouble(12 / 100 * earningProvider!.earningList[index].price!.toDouble()) : roundDouble(10 / 100 * earningProvider!.earningList[index].price!.toDouble())}",
                                                           style:
                                                               blackTextBoldIn14px(),
                                                         ),
@@ -321,13 +324,14 @@ class _WalletPageState extends State<WalletPage> {
   initializeComponent() async {
     earningProvider = Provider.of<EarningProvider>(context, listen: false);
 
-    await earningProvider?.getEarningMethod(user: widget.UModel!);
+    await earningProvider?.getEarningMethod(user: widget.userModel!);
     setState(() {});
   }
 
-  double roundDouble(double value, ) {
+  double roundDouble(
+    double value,
+  ) {
     num mod = pow(10.0, 2);
     return ((value * mod).round().toDouble() / mod);
   }
-
 }

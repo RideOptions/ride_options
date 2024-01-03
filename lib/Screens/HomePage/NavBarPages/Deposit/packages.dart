@@ -46,7 +46,8 @@ class _PackagesPageState extends State<PackagesPage> {
 
   late DatabaseReference _userRef;
   UserModel? _user;
-  var uid = currentUid != null ? currentUid : FirebaseAuth.instance.currentUser?.uid;
+  var uid =
+      currentUid != null ? currentUid : FirebaseAuth.instance.currentUser?.uid;
 
   @override
   void initState() {
@@ -396,7 +397,7 @@ class _PackagesPageState extends State<PackagesPage> {
                 .child('SaTtAaYz')
                 .child('paymentHistory');
 
-            paymentHistory payment = paymentHistory(
+            PaymentHistory payment = PaymentHistory(
                 profielPic: _user!.profilePicture!,
                 name: _user!.name!,
                 type: 'Subscribe Plan',

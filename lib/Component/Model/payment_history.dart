@@ -1,4 +1,4 @@
-class paymentHistory {
+class PaymentHistory {
   String profielPic;
   String name;
   String type;
@@ -6,7 +6,7 @@ class paymentHistory {
   String id;
 
 //<editor-fold desc="Data Methods">
-  paymentHistory({
+  PaymentHistory({
     required this.profielPic,
     required this.name,
     required this.type,
@@ -17,7 +17,7 @@ class paymentHistory {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is paymentHistory &&
+      (other is PaymentHistory &&
           runtimeType == other.runtimeType &&
           profielPic == other.profielPic &&
           name == other.name &&
@@ -44,14 +44,14 @@ class paymentHistory {
         '}';
   }
 
-  paymentHistory copyWith({
+  PaymentHistory copyWith({
     String? profielPic,
     String? name,
     String? type,
     String? amount,
     String? id,
   }) {
-    return paymentHistory(
+    return PaymentHistory(
       profielPic: profielPic ?? this.profielPic,
       name: name ?? this.name,
       type: type ?? this.type,
@@ -70,8 +70,8 @@ class paymentHistory {
     };
   }
 
-  factory paymentHistory.fromMap(Map<String, dynamic> map) {
-    return paymentHistory(
+  factory PaymentHistory.fromMap(Map<String, dynamic> map) {
+    return PaymentHistory(
       profielPic: map['profielPic'] as String,
       name: map['name'] as String,
       type: map['type'] as String,
