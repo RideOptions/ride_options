@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-
 import '../../Screens/HomePage/NavBarPages/Ride/driver_live_tracking_page.dart';
 import '../Dialogue/app_dialogue.dart';
 import '../Model/Authentication/driver_user_model.dart';
@@ -71,7 +69,6 @@ class RideProvider with ChangeNotifier {
         MyResponse(success: false, message: "no data", data: null);
     // showSnackBar(context,
     //     "vehicleType "+vehicleType);
-
     if (vehicleType == Constant.bikeVehicleType ||
         vehicleType == Constant.RickshawVehicleType ||
         vehicleType == Constant.miniVehicleType ||
